@@ -1,126 +1,76 @@
-import React, {PureComponent} from 'react';
-import {Button, Input, Select, Table} from 'antd';
-import {createStore} from 'redux';
-import reducer from '../../reducers/reducers';
+import React from 'react';
+import {Button, Input, Select} from 'antd';
+import {connect} from 'react-redux';
+import {addPerson} from '../../actions/index';
+
 import './index.less';
 
-const store = createStore(reducer);
-const action = (type, value) => store.dispatch({type, value});
 const Option = Select.Option;
+let data = {};
+const inputData = e => {
+  let name = e.target.name;
+  let value = e.target.value;
+  data[name] = value;
+};
 
-export default class DataInput extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      age: '',
-      sex: ''
-    };
-    this.options = [
-      {
-        label: '男',
-        value: 1
-      },
-      {
-        label: '女',
-        value: 2
-      }
-    ];
+const selectData = value => {
+  data.sex = value;
+};
 
-    this.columns = [
-      {
-        title: '姓名',
-        dataIndex: 'name',
-        key: 'name'
-      },
-      {
-        title: '年龄',
-        dataIndex: 'age',
-        key: 'age'
-      },
-      {
-        title: '性别',
-        dataIndex: 'sex',
-        key: 'sex',
-        render: this.sexTransfer
-      }
-    ];
-
-    this.inputData = this.inputData.bind(this);
-    this.selectData = this.selectData.bind(this);
+const options = [
+  {
+    label: '男',
+    value: 1
+  },
+  {
+    label: '女',
+    value: 2
   }
+];
 
-  sexTransfer(text) {
-    if (text === 1) {
-      return '男';
-    }
-    if (text === 2) {
-      return '女';
-    }
-  }
+const DataInput = ({dispatch}) => (
+  <div className='wrap'>
+    <Input
+      name='name'
+      placeholder='请输入姓名'
+      allowClear
+      className='nameInput'
+      onChange={inputData}
+    />
+    <br />
+    <Input
+      name='age'
+      placeholder='请输入年龄'
+      allowClear
+      className='ageInput'
+      onChange={inputData}
+    />
+    <br />
+    <Select
+      name='sex'
+      style={{width: '100px'}}
+      placeholder='--请选择--'
+      className='sexSelect'
+      onChange={selectData}>
+      {options.map(item => (
+        <Option key={item.value} value={item.value}>
+          {item.label}
+        </Option>
+      ))}
+    </Select>
+    <br />
+    <Button
+      type='primary'
+      className='submit'
+      onClick={() => {
+        // for (let key in data) {
+        //   if (data[key] === '') return;
+        // }
+        dispatch(addPerson(data));
+      }}>
+      提交
+    </Button>
+  </div>
+);
 
-  inputData = e => {
-    let name = e.target.name;
-    let value = e.target.value;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  selectData = value => {
-    this.setState({
-      sex: value
-    });
-  };
-
-  render() {
-    return (
-      <div className='wrap'>
-        <Input
-          name='name'
-          placeholder='请输入姓名'
-          allowClear
-          className='nameInput'
-          onChange={this.inputData}
-        />
-        <br />
-        <Input
-          name='age'
-          placeholder='请输入年龄'
-          allowClear
-          className='ageInput'
-          onChange={this.inputData}
-        />
-        <br />
-        <Select
-          name='sex'
-          style={{width: '100px'}}
-          placeholder='--请选择--'
-          allowClear
-          className='sexSelect'
-          onChange={this.selectData}>
-          {this.options.map(item => (
-            <Option key={item.value} value={item.value}>
-              {item.label}
-            </Option>
-          ))}
-        </Select>
-        <br />
-        <Button
-          type='primary'
-          className='submit'
-          onClick={() => {
-            action('INCREASE', this.state);
-            // this.setState({
-            //   name: '',
-            //   age: '',
-            //   sex: ''
-            // });
-          }}>
-          提交
-        </Button>
-        <Table dataSource={store.getState()} columns={this.columns} />
-      </div>
-    );
-  }
-}
+export default connect()(DataInput);

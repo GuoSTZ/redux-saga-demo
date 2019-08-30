@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import DataInput from './components/input/index';
+import TableShow from './components/table/index';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         </a>
       </header>
       <DataInput />
+      <TableShow />
     </div>
   );
 }
