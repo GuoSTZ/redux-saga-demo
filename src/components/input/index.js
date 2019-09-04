@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Input, Select} from 'antd';
+import {Button, Input, Select, Form, Icon} from 'antd';
 import {connect} from 'react-redux';
 import {addPerson} from '../../actions/index';
 
@@ -27,6 +27,10 @@ const options = [
     value: 2
   }
 ];
+
+const handleSubmit = e => {
+  console.log(e.target.value);
+};
 
 const DataInput = ({dispatch}) => (
   <div className='wrap'>
@@ -63,9 +67,6 @@ const DataInput = ({dispatch}) => (
       type='primary'
       className='submit'
       onClick={() => {
-        // for (let key in data) {
-        //   if (data[key] === '') return;
-        // }
         dispatch(addPerson(data));
       }}>
       提交
