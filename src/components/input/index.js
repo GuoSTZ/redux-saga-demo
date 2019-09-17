@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, Input, Select, Form, Icon} from 'antd';
-import {connect} from 'react-redux';
-import {addPerson} from '../../actions/index';
+import { Button, Input, Select } from 'antd';
+import { connect } from 'react-redux';
+import { addPerson } from '../../actions/index';
 
 import './index.less';
 
@@ -32,7 +32,7 @@ const handleSubmit = e => {
   console.log(e.target.value);
 };
 
-const DataInput = ({dispatch}) => (
+const DataInput = ({ dispatch }) => (
   <div className='wrap'>
     <Input
       name='name'
@@ -52,8 +52,8 @@ const DataInput = ({dispatch}) => (
     <br />
     <Select
       name='sex'
-      style={{width: '100px'}}
-      placeholder='--请选择--'
+      style={{ width: '150px' }}
+      placeholder='----请选择----'
       className='sexSelect'
       onChange={selectData}>
       {options.map(item => (
@@ -62,7 +62,6 @@ const DataInput = ({dispatch}) => (
         </Option>
       ))}
     </Select>
-    <br />
     <Button
       type='primary'
       className='submit'
