@@ -18,14 +18,20 @@ export function deletePerson(index) {
 
 export function modifyPerson(value) {
   return {
-    type: actionTypes.ADD_PERSON,
+    type: actionTypes.MODIFY_PERSON,
+    value
+  };
+}
+export function showModal(value) {
+  return {
+    type: actionTypes.SHOW_MODAL,
     value
   };
 }
 
-export function hideModal(index) {
+export function hideModal(value) {
   return {
-    type: actionTypes.DELETE_PERSON,
-    index
+    type: actionTypes.HIDE_MODAL,
+    value
   };
 }

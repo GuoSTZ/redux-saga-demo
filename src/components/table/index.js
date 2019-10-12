@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'antd';
 import { connect } from 'react-redux';
-import { deletePerson } from '../../actions/index';
+import { deletePerson, showModal } from '../../actions/index';
 import PieChart from '../pieChart/index'
 import './index.less'
 
@@ -40,7 +40,10 @@ const columns = [
     key: 'operation',
     align: 'center',
     render: (text, row, index) =>
-      <Button type='primary' onClick={() => { dispatchDemo(deletePerson(index)) }}>delete</Button>
+      <Button.Group>
+        <Button type='primary' onClick={() => { dispatchDemo(deletePerson(index)) }}>删除</Button>
+        <Button type='primary' onClick={() => { dispatchDemo(showModal(index)) }}>修改</Button>
+      </Button.Group>
   }
 ];
 
