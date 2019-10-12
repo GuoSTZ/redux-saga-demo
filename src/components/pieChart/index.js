@@ -70,10 +70,7 @@ export default class PieChart extends React.PureComponent {
     }
     componentWillReceiveProps(nextProps) {
         let { persons } = this.props
-        let newPersons = nextProps.persons.toString()
-        if (persons.toString() !== newPersons) {
-            persons = nextProps.persons
-        }
+        persons = nextProps.persons
         initPieChart(persons)
     }
     render() {

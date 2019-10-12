@@ -8,8 +8,6 @@ const modal = (state = defaultState, action) => {
             return { ...state, visible: true, index: action.index };
         case 'HIDE_MODAL':
             return { ...state, visible: false };
-        case 'MODIFY_CONFIRM':
-            return { ...state, visible: false, ...action.value };
         default:
             return state;
     }

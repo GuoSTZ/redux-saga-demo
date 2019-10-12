@@ -17,6 +17,13 @@ const persons = (state = defaultData, action) => {
       return state.filter((value, index, arr) => {
         return index !== action.index
       })
+    case 'MODIFY_PERSON':
+      return state.map(item => {
+        if (item.key === action.index) {
+          return item = { key: item.key, ...action.value }
+        }
+        return item
+      })
     default:
       return state;
   }

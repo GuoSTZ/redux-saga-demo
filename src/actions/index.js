@@ -16,22 +16,23 @@ export function deletePerson(index) {
   };
 }
 
-export function modifyPerson(value) {
+export function modifyPerson(value, index) {
   return {
     type: actionTypes.MODIFY_PERSON,
-    value
+    value,
+    index
   };
 }
-export function showModal(value) {
+export function showModal(index) {
   return {
     type: actionTypes.SHOW_MODAL,
-    value
+    index
   };
 }
 
-export function hideModal(value) {
+export function hideModal(index) {
   return {
     type: actionTypes.HIDE_MODAL,
-    value
+    index
   };
 }

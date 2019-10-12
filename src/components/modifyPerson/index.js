@@ -14,30 +14,22 @@ const options = [
         value: 2
     }
 ];
-let data = {};
-const inputData = e => {
-    let name = e.target.name;
-    let value = e.target.value;
-    data[name] = value;
-};
-const selectData = value => {
-    data.sex = value;
-};
 const ModifyPerson = ({ modal, persons, dispatch, form }) => {
     let person = persons[modal.index]
-    let name = null, age = null, sex = null;
-    if (person !== undefined) {
-        name = person.name;
-        age = person.age;
-        sex = person.sex === 1 ? '男' : '女';
-    }
+    let name = person.name;
+    let age = person.age;
+    let sex = person.sex;
+    let sexText = sex === 1 ? '男' : '女';
     const { getFieldDecorator } = form
-    // form.setFieldsValue({ 'name': name, 'age': age, 'sex': sex })
+    let value = form.getFieldsValue();
     return (
         <Modal
             title="修改个人信息"
             visible={modal.visible}
-            onOk={() => dispatch(modifyPerson(data))}
+            onOk={() => {
+                dispatch(hideModal())
+                dispatch(modifyPerson(value, modal.index))
+            }}
             onCancel={() => dispatch(hideModal())}
             closable={false}
             okText='确认修改'
@@ -46,40 +38,35 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
             <Form>
                 <Form.Item>
                     {getFieldDecorator('name', {
-                        rules: [{ required: true, message: 'Please input your username!' }],
+                        rules: [{ required: true, message: 'Please input name!' }],
+                        initialValue: `${name}`
                     })(
                         <Input
                             name='name'
                             placeholder='请输入姓名'
                             className='modify-nameInput'
-                            // value={name}
                             allowClear
-                            onChange={inputData}
                         />
                     )}
                 </Form.Item>
                 <Form.Item>
-                    {getFieldDecorator('name', {
-                        rules: [{ required: true, message: 'Please input your username!' }],
+                    {getFieldDecorator('age', {
+                        rules: [{ required: true, message: 'Please input age!' }],
+                        initialValue: `${age}`
                     })(
                         <Input
                             placeholder='请输入年龄'
                             className='modify-ageInput'
-                            // value={age}
                             allowClear
-                            onChange={inputData}
                         />
                     )}
                 </Form.Item>
                 <Form.Item>
-                    {getFieldDecorator('name', {
-                        rules: [{ required: true, message: 'Please input your username!' }],
+                    {getFieldDecorator('sex', {
+                        rules: [{ required: true, message: 'Please input sex!' }],
+                        initialValue: `${sexText}`
                     })(
-                        <Select
-                            className='modify-sexSelect'
-                            // value={sex}
-                            onChange={selectData}
-                        >
+                        <Select className='modify-sexSelect'>
                             {options.map(item => (
                                 <Option key={item.value} value={item.value}>
                                     {item.label}
@@ -100,6 +87,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return { dispatch }
 }
-const TestForm = Form.create()(ModifyPerson)
+const ModifyForm = Form.create()(ModifyPerson)
 // export default connect(mapStateToProps, mapDispatchToProps)(ModifyPerson);
-export default connect(mapStateToProps, mapDispatchToProps)(TestForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ModifyForm);
