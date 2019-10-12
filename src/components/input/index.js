@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Input, Select } from 'antd';
 import { connect } from 'react-redux';
 import { addPerson } from '../../actions/index';
-
 import './index.less';
 
 const Option = Select.Option;
@@ -41,7 +40,6 @@ const DataInput = ({ dispatch }) => (
       className='nameInput'
       onChange={inputData}
     />
-    <br />
     <Input
       name='age'
       placeholder='请输入年龄'
@@ -49,11 +47,9 @@ const DataInput = ({ dispatch }) => (
       className='ageInput'
       onChange={inputData}
     />
-    <br />
     <Select
       name='sex'
-      style={{ width: '150px' }}
-      placeholder='----请选择----'
+      placeholder='请选择'
       className='sexSelect'
       onChange={selectData}>
       {options.map(item => (

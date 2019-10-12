@@ -51,7 +51,7 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
                         <Input
                             name='name'
                             placeholder='请输入姓名'
-                            className='nameInput'
+                            className='modify-nameInput'
                             // value={name}
                             allowClear
                             onChange={inputData}
@@ -64,7 +64,7 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
                     })(
                         <Input
                             placeholder='请输入年龄'
-                            className='ageInput'
+                            className='modify-ageInput'
                             // value={age}
                             allowClear
                             onChange={inputData}
@@ -76,7 +76,7 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
                         rules: [{ required: true, message: 'Please input your username!' }],
                     })(
                         <Select
-                            className='sexSelect'
+                            className='modify-sexSelect'
                             // value={sex}
                             onChange={selectData}
                         >

@@ -3,6 +3,7 @@ import { Table, Button } from 'antd';
 import { connect } from 'react-redux';
 import { deletePerson } from '../../actions/index';
 import PieChart from '../pieChart/index'
+import './index.less'
 
 function sexTransfer(text) {
   if (text === 1) {
@@ -46,7 +47,7 @@ const columns = [
 const TableShow = ({ persons, dispatch }) => {
   dispatchDemo = dispatch
   return (
-    <div>
+    <div className='table'>
       <Table dataSource={persons} columns={columns} />
       <PieChart persons={persons} />
     </div>
