@@ -15,3 +15,17 @@ export function deletePerson(index) {
     index
   };
 }
+
+export function modifyPerson(value) {
+  return {
+    type: actionTypes.ADD_PERSON,
+    value
+  };
+}
+
+export function hideModal(index) {
+  return {
+    type: actionTypes.DELETE_PERSON,
+    index
+  };
+}

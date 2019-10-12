@@ -8,7 +8,7 @@ const App = () => (
   <div style={{ position: 'absolute', width: '100%' }}>
     <DataInput />
     <TableShow />
-    <TestForm />
+    {/* <TestForm /> */}
   </div>
 );
 
