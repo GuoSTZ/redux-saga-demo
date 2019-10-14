@@ -1,18 +1,21 @@
 let id = 1;
-const defaultData = [
-  { key: 0, name: '小没', age: 12, sex: 1 }
-]
+const defaultData = [{
+  key: 0,
+  name: '小没',
+  age: 12,
+  sex: 1
+}]
 const persons = (state = defaultData, action) => {
   switch (action.type) {
     case 'ADD_PERSON':
-      return state.concat([
-        {
-          key: id++,
-          name: action.value.name,
-          age: action.value.age,
-          sex: action.value.sex
-        }
-      ]);
+      return state.concat([{
+        key: id++,
+        name: action.value.name,
+        age: action.value.age,
+        sex: action.value.sex
+      }]);
+    case 'ADD_PERSON_SUCCESS':
+      return state;
     case 'DELETE_PERSON':
       return state.filter((value, index, arr) => {
         return index !== action.index
@@ -20,7 +23,10 @@ const persons = (state = defaultData, action) => {
     case 'MODIFY_PERSON':
       return state.map(item => {
         if (item.key === action.index) {
-          return item = { key: item.key, ...action.value }
+          return item = {
+            key: item.key,
+            ...action.value
+          }
         }
         return item
       })

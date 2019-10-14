@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Input, Select } from 'antd';
 import { connect } from 'react-redux';
 import { addPerson } from '../../actions/index';
+// import { store } from '../../store/store'
 import './index.less';
 
 const Option = Select.Option;
@@ -63,6 +64,7 @@ const DataInput = ({ dispatch }) => (
       className='submit'
       onClick={() => {
         dispatch(addPerson(data));
+        // store.dispatch(addPerson(data))
       }}>
       提交
     </Button>

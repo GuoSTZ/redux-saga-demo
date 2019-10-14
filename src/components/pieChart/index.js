@@ -70,6 +70,7 @@ export default class PieChart extends React.PureComponent {
     }
     componentWillReceiveProps(nextProps) {
         let { persons } = this.props
+        /**此处应该进行优化，不该一直进行重新渲染，要加入判断 */
         persons = nextProps.persons
         initPieChart(persons)
     }
