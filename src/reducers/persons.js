@@ -14,8 +14,12 @@ const persons = (state = defaultData, action) => {
         age: action.value.age,
         sex: action.value.sex
       }]);
-    case 'ADD_PERSON_SUCCESS':
-      return state;
+    case 'IMPORT_PERSONS_SUCCESS':
+      let arr = action.value.map(item => {
+        item.key = id++
+        return item
+      })
+      return state.concat(arr)
     case 'DELETE_PERSON':
       return state.filter((value, index, arr) => {
         return index !== action.index

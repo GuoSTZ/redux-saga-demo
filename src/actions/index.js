@@ -9,6 +9,12 @@ export function addPerson(value) {
   };
 }
 
+export function importPersons() {
+  return {
+    type: actionTypes.IMPORT_PERSONS,
+  };
+}
+
 export function deletePerson(index) {
   return {
     type: actionTypes.DELETE_PERSON,
