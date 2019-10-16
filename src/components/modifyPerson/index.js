@@ -17,12 +17,13 @@ const options = [
 ];
 const ModifyPerson = ({ modal, persons, dispatch, form }) => {
     let person = persons[modal.index]
-    let name = person.name;
-    let age = person.age;
-    let sex = person.sex;
-    let sexText = sex === 1 ? '男' : '女';
     const { getFieldDecorator } = form
     let value = form.getFieldsValue();
+    if (value.sex === '男') {
+        value.sex = 1
+    } else {
+        value.sex = 2
+    }
     return (
         <Modal title="修改个人信息"
             visible={modal.visible}
@@ -32,7 +33,10 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
                     dispatch(modifyPerson(value, modal.index))
                 }
             }
-            onCancel={() => dispatch(hideModal())}
+            onCancel={() => {
+                dispatch(hideModal())
+                form.resetFields('sex')
+            }}
             closable={false}
             okText='确认修改'
             cancelText='放弃修改' >
@@ -40,7 +44,7 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
                 <Form.Item >
                     {getFieldDecorator('name', {
                         rules: [{ required: true, message: 'Please input name!' }],
-                        initialValue: `${name}`
+                        initialValue: `${person.name}`
                     })(<Input
                         name='name'
                         placeholder='请输入姓名'
@@ -52,7 +56,7 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
                 <Form.Item >
                     {getFieldDecorator('age', {
                         rules: [{ required: true, message: 'Please input age!' }],
-                        initialValue: `${age}`
+                        initialValue: `${person.age}`
                     })(<Input
                         placeholder='请输入年龄'
                         className='modify-ageInput'
@@ -63,12 +67,14 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
                 <Form.Item >
                     {getFieldDecorator('sex', {
                         rules: [{ required: true, message: 'Please input sex!' }],
-                        initialValue: `${sexText}`
+                        initialValue: `${person.sex === 1 ? '男' : '女'}`
                     })(<Select
                         className='modify-sexSelect' >
                         {options.map(item =>
-                            (<Option key={item.value}
-                                value={item.value} > {item.label}
+                            (<Option
+                                key={item.value}
+                                value={item.value}>
+                                {item.label}
                             </Option>)
                         )
                         }

@@ -49,7 +49,6 @@ const columns = [
 
 const TableShow = ({ persons, dispatch }) => {
   dispatchDemo = dispatch
-  console.log(persons, 'table')
   return (
     <div className='table'>
       <Table dataSource={persons} columns={columns} />
@@ -58,7 +57,6 @@ const TableShow = ({ persons, dispatch }) => {
   )
 }
 function mapStateToProps(state) {
-  console.log(state, 'state')
   return { persons: state.persons };
 }
 

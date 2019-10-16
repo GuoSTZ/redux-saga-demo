@@ -16,14 +16,14 @@ export default class ImportButton extends React.Component {
     }
 }
 
-// const ImportButton = () => {
+// const ImportButton = ({ dispatch }) => {
 //     return (
 //         <Button
 //             type='primary'
 //             style={{ marginTop: '15px' }}
 //             onClick={() => { store.dispatch(importPersons()) }}>
 //             一键导入
-//         </Button>
+//             </Button>
 //     )
 // }
 

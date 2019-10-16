@@ -1,18 +1,18 @@
 let id = 1;
 const defaultData = [{
-  key: 0,
   name: '小没',
   age: 12,
-  sex: 1
+  sex: 1,
+  key: 0
 }]
 const persons = (state = defaultData, action) => {
   switch (action.type) {
     case 'ADD_PERSON':
       return state.concat([{
-        key: id++,
         name: action.value.name,
         age: action.value.age,
-        sex: action.value.sex
+        sex: action.value.sex,
+        key: id++
       }]);
     case 'IMPORT_PERSONS_SUCCESS':
       let arr = action.value.map(item => {

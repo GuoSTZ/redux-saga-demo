@@ -1,7 +1,4 @@
-import {
-    createStore,
-    applyMiddleware
-} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducerAll from '../reducers/index.js';
 import createSagaMiddleware from 'redux-saga'; // 引入redux-saga中的createSagaMiddleware函数
 import rootSaga from '../sagas/saga.js'; // 引入saga.js
