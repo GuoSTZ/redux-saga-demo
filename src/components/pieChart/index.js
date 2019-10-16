@@ -61,9 +61,9 @@ const setOption = (data, titleText) => {
 }
 
 export default class PieChart extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
     componentDidMount() {
         const { persons } = this.props
         initPieChart(persons)
