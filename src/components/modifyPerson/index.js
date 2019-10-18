@@ -21,7 +21,7 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
     let value = form.getFieldsValue();
     if (value.sex === '男') {
         value.sex = 1
-    } else {
+    } else if (value.sex === '女') {
         value.sex = 2
     }
     return (
@@ -31,10 +31,13 @@ const ModifyPerson = ({ modal, persons, dispatch, form }) => {
                 () => {
                     dispatch(hideModal())
                     dispatch(modifyPerson(value, modal.index))
+                    form.resetFields('age')
+                    form.resetFields('sex')
                 }
             }
             onCancel={() => {
                 dispatch(hideModal())
+                form.resetFields('age')
                 form.resetFields('sex')
             }}
             closable={false}
