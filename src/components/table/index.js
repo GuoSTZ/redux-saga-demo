@@ -51,7 +51,7 @@ const TableShow = ({ persons, dispatch }) => {
   dispatchDemo = dispatch
   return (
     <div className='table'>
-      <Table dataSource={persons} columns={columns} />
+      <Table dataSource={persons} columns={columns} pagination={{ defaultPageSize: 5 }} />
       <PieChart persons={persons} />
     </div>
   )
