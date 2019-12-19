@@ -1,5 +1,6 @@
 import { actionTypes } from '../common/actionTypes.js';
 import { call, put, takeEvery } from 'redux-saga/effects'; // 引入相关函数
+import {Message} from 'antd'
 
 function* getData() { // 参数是action创建函数返回的action
     const p = function () {
@@ -8,10 +9,13 @@ function* getData() { // 参数是action创建函数返回的action
         })
             .then(res => res.json())
             .then(data => data)
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err)
+                Message.error('没有获取到数据')
+            });
     }
     const data = yield call(p)
-    if (data.code === 0) {
+    if (data && data.code === 0) {
         let value = data.data.items
         yield put({ // dispatch一个action到reducer， payload是请求返回的数据
             type: actionTypes.IMPORT_PERSONS_SUCCESS,
