@@ -1,5 +1,6 @@
 import { Model, fk, oneToOne, many, ORM, attr } from "redux-orm";
 
+export const namespace = "PositionSet"
 export class PositionSet extends Model {
     static reducer(action, PositionSet, session) {
         let modelName = PositionSet.modelName
@@ -16,7 +17,7 @@ export class PositionSet extends Model {
         }
     }
 }
-PositionSet.modelName = "PositionSet";
+PositionSet.modelName = namespace;
 PositionSet.fields = {
     post: attr()
 }
@@ -98,5 +99,4 @@ staffMap.map(item => {
     SSet.create(item)
 })
 
-console.log(PSet.count())
-export {orm}
+export { orm }

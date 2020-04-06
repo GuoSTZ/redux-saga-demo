@@ -1,10 +1,24 @@
-import { combineReducers } from 'redux';
-import persons from './persons';
-import modal from './modal';
-import { createReducer } from "redux-orm";
-import { orm } from '../models/models'
-export default combineReducers({
-  modal, 
-  persons,
-  orm: createReducer(orm)
-});
+export { handleActions as reducerCreator } from 'redux-actions'
+
+export const defaultState={
+  // 定义默认的state数据
+}
+
+export function megerActionReducer(reducers,reducerTypes){
+  const newReducer={}
+  for(var r in reducers){
+    newReducer[reducerTypes[r]]=reducers[r]
+  }
+  return newReducer
+}
+
+
+export function defaultReducer(){
+  return {
+    inital:(state,{payload})=>{
+       return defaultState
+    },
+  }
+}
+
+

@@ -1,44 +1,25 @@
 import { actionTypes } from '../common/actionTypes';
 
-/**定义action操作，返回一个对象，包含action的类型和一个value值 */
+import {createAction,createActions} from 'redux-actions'
 
-export function addPerson(value) {
-  return {
-    type: actionTypes.ADD_PERSON,
-    value
-  };
+const payloadFn=(payload,meta)=>payload
+const metaFN=(payload)=>({sagaAction:true})
+
+export function defineActions(obj){
+  var defineObj={}
+  for(var o in obj){
+    Object.defineProperty(defineObj, o, {
+      value:[payloadFn,metaFN]
+    })
+  }
+  return defineObj
 }
 
-export function importPersons() {
-  return {
-    type: actionTypes.IMPORT_PERSONS,
-  };
-}
 
-export function deletePerson(index) {
-  return {
-    type: actionTypes.DELETE_PERSON,
-    index
-  };
-}
+export function createDefineActions(actions,namespace){
+  let namespace_copy = namespace.replace(namespace[0],namespace[0].toLowerCase())
+  return createActions({
+    [namespace]: defineActions(actions)
+  })[namespace_copy]
 
-export function modifyPerson(value, index) {
-  return {
-    type: actionTypes.MODIFY_PERSON,
-    value,
-    index
-  };
-}
-export function showModal(index) {
-  return {
-    type: actionTypes.SHOW_MODAL,
-    index
-  };
-}
-
-export function hideModal(index) {
-  return {
-    type: actionTypes.HIDE_MODAL,
-    index
-  };
 }

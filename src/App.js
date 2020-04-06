@@ -1,16 +1,18 @@
 import React from 'react';
-import DataInput from './components/input/index';
-import TableShow from './components/table/index';
-import ModifyForm from './components/modifyPerson/index';
-import ImportButton from './components/saga-import/index'
+import { BrowserRouter as Router,Route} from 'react-router-dom';
+import { LoginPageContainer } from './pages/login/container'
+// import  VideoPage  from './pages/video/views/index.js'
+import  RegisterPage  from './pages/register/views/index.js'
 import './App.less'
 
 const App = () => (
-  <div className='box'>
-    <DataInput />
-    <ImportButton />
-    <TableShow />
-    <ModifyForm />
+  <div>
+    <Router>
+		  <div>
+        <Route exact path="/" component={LoginPageContainer} />
+        <Route path="/register" component={RegisterPage} />
+      </div>
+		</Router>
   </div>
 );
 
