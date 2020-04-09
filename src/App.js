@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router,Route} from 'react-router-dom';
 import { LoginPageContainer } from './pages/login/container'
-// import  VideoPage  from './pages/video/views/index.js'
 import  RegisterPage  from './pages/register/views/index.js'
 import './App.less'
 
