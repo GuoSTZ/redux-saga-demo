@@ -20,16 +20,19 @@ export function fetchPost(url, options) {
     if (options && options.body && options.body !== '') {
         options.body = JSON.stringify(options.body);
     }
+    console.log(url)
     return fetch(
         url,
-        Object.assign({
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                Pragma: 'no-cache'
+        Object.assign(
+            {
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    Pragma: 'no-cache',
+                },
+                method: 'POST',
+                mode: 'cors',
             },
-            method: 'POST'
-        },
-        options
+            options
         )
     )
     .then(res => res.json())

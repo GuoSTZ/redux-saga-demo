@@ -12,13 +12,17 @@ export const sagas = Object.assign({}, {
     },
     fetchData: function * () {
         yield call(Api.fetchData);
-    }
+    },
+    login: function * (action) {
+        let data = yield call(Api.login, action.payload);
+        console.log(data)
+    },
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)
 
-function* LoginRootSaga() {
+function* rootSaga() {
     yield takeSagas(sagaActions, sagas)
 }
 
-export default LoginRootSaga; // 导出rootSaga，被store.js文件import
+export default rootSaga; // 导出rootSaga，被store.js文件import

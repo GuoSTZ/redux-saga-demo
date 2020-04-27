@@ -1,0 +1,20 @@
+@navWidth: 150px;
+#videoUpload{
+    main{
+        display: flex;
+        padding: 0 5%;
+        margin-top: 20px;
+        nav{
+            position: fixed;
+        }
+        .uploadBox{
+            width: calc(100% - @navWidth);
+            margin-left: @navWidth;
+            .upload{
+                width: 50%;
+                height: 250px;
+                margin: 0 auto;
+            }
+        }
+    }
+}

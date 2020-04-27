@@ -8,6 +8,11 @@ export default class LoginPage extends React.Component{
     componentDidMount(){
         const { actions } = this.props
         actions.fetchCheckCode(this.createCode(4))
+        let obj = {
+            account: 'admin',
+            password: '123456'
+        }
+        actions.login(obj)
     }
     onFinish = values => {
         const { reducer: {checkCode} } = this.props
@@ -40,10 +45,12 @@ export default class LoginPage extends React.Component{
         return(
             <div id="loginPage">
                 <header>
-                    <img src='../../resources/login/title.jpg' />
+                    {/* <img src='../../resources/login/title.jpg' /> */}
+                    <img src='http://guostz.gitee.io/graduationprojectresource/resource/images/loginPage/title.jpg' />
                 </header>
                 <main className="container">
-                    <img src='./resources/login/bg.png' />
+                    {/* <img src='./resources/login/bg.png' /> */}
+                    <img src='http://guostz.gitee.io/graduationprojectresource/resource/images/loginPage/bg.png' />
                     <div className="formBox">
 
                         <div className="formTitle">
