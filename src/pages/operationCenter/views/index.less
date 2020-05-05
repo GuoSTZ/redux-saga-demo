@@ -2,18 +2,38 @@
 #videoUpload{
     main{
         display: flex;
+        min-height: 250px;
         padding: 0 5%;
         margin-top: 20px;
         nav{
             position: fixed;
         }
-        .uploadBox{
+        .contentBox{
             width: calc(100% - @navWidth);
             margin-left: @navWidth;
-            .upload{
-                width: 50%;
-                height: 250px;
-                margin: 0 auto;
+            .videoImg-uploader > .ant-upload {
+                width: 128px;
+                height: 128px;
+            }
+            .tips{
+                margin-bottom: 40px;
+                .ant-row{
+                    .ant-col{
+                        margin-right: 20px !important;
+                        color: #99A2AA;
+                        cursor: pointer;
+                        &:hover{
+                            color: #1890FF;
+                        }
+                        >a{
+                            color: #99A2AA;
+                            &:hover{
+                                color: #1890FF;
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

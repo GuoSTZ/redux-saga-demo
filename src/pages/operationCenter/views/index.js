@@ -1,57 +1,169 @@
 import React from 'react'
-import { message, Menu } from 'antd';
+import { message, Menu  } from 'antd';
 import {
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
+    PieChartOutlined,
+    DesktopOutlined,
+    ContainerOutlined,
 } from '@ant-design/icons';
 
-import VideoUpload from '../../../components/videoUpload/index'
 import Header from '../../../components/header/index'
+import UploadVideo from '../../uploadVideo/views/index'
+import Footer from '../../../components/footer/index'
+import DataCenter from '../../dataCenter/views/index'
+import CommentsManagement from '../../commentsManagement/views/index'
 
 import './index.less'
+
+function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+}
+function beforeUpload(file) {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!');
+    }
+    return isJpgOrPng && isLt2M;
+}
+
+// 页面常量设置
+const PAGES = {
+    uploadPersonalVideo: '1',
+    uploadTeachingVideo: '2',
+    dataCenter: '3',
+    commentsManagement: '4'
+}
 
 export default class OperationCenter extends React.Component{
     state = {
         collapsed: false,
-        uploadDisplay: 'block'
+        loading: false,
     };
-    uploadOnChange = info =>{
-        const { status } = info.file;
-        if (status === 'uploading') {
-            // this.setState({
-            //     uploadDisplay: 'none'
-            // })
-            return
+    onFinish = values => {
+        console.log('Success:', values);
+    };
+    onFinishFailed = errorInfo => {
+        console.log('Failed:', errorInfo);
+    };
+    handleChange = info => {
+        if (info.file.status === 'uploading') {
+            this.setState({ loading: true });
+            return;
         }
-        if (status === 'done') {
-            message.success(`${info.file.name} 视频上传成功.`);
-        } else if (status === 'error') {
-            message.error(`${info.file.name} 视频上传失败.`);
+        if (info.file.status === 'done') {
+            // Get this url from response in real world.
+            getBase64(info.file.originFileObj, imageUrl =>
+                this.setState({
+                imageUrl,
+                loading: false,
+                }),
+            );
+        }
+    };
+    click = ({ item, key, keyPath, domEvent }) => {
+        const {actions} = this.props
+        actions.changePage(key);
+    }
+    renderPage = () => {
+        const {reducer: { page }} = this.props
+        const uploadProps = {
+            action: '//jsonplaceholder.typicode.com/posts/',
+            listType: 'picture',
+            previewFile(file) {
+              console.log('你上传的文件是:', file);
+              // Your process logic. Here we just mock to the same file
+              return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
+                method: 'POST',
+                body: file,
+              })
+                .then(res => res.json())
+                .then(({ thumbnail }) => thumbnail);
+            },
+        }
+        const videoTagsData = [
+            {
+                value: '标签1',
+                label: '标签1'
+            },
+            {
+                value: '标签2',
+                label: '标签2'
+            },
+            {
+                value: '标签3',
+                label: '标签3'
+            },
+            {
+                value: '标签4',
+                label: '标签4'
+            },
+            {
+                value: '标签5',
+                label: '标签5'
+            },
+            {
+                value: '标签6',
+                label: '标签6'
+            },
+            {
+                value: '标签7',
+                label: '标签7'
+            },
+            {
+                value: '标签8',
+                label: '标签8'
+            },
+            {
+                value: '标签9',
+                label: '标签9'
+            },
+            {
+                value: '标签10',
+                label: '标签10'
+            },
+        ]
+        const videoTypesData = [
+            {
+                value: '类别1',
+                label: '类别1'
+            },
+            {
+                value: '类别2',
+                label: '类别2'
+            },
+            {
+                value: '类别3',
+                label: '类别3'
+            },
+        ]
+        switch(page){
+            case PAGES.uploadPersonalVideo:
+                return <UploadVideo 
+                            uploadProps={uploadProps} 
+                            videoTagsData={videoTagsData} 
+                            videoTypesData={videoTypesData}/>
+
+            case PAGES.uploadTeachingVideo:
+                return <UploadVideo 
+                            uploadProps={uploadProps} 
+                            videoTagsData={videoTagsData} 
+                            videoTypesData={videoTypesData}
+                            isTeacher={false}/>
+            
+            case PAGES.dataCenter:
+                return <DataCenter />
+            
+            case PAGES.commentsManagement:
+                return <CommentsManagement />
         }
     }
     render(){
-        // 视频上传参数配置
-        const option = {
-            // 发到后台的文件参数名
-            name: 'file',
-            // 是否支持多选文件
-            // multiple: true,
-            // 上传的地址
-            action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-            accept: '.mp4,.flv,.mkv,.avi,.rmvb,.mkv,.m4v',
-            onChange: this.uploadOnChange,
-            previewFile: file => {
-                console.log('Your upload file:', file);
-                // Your process logic. Here we just mock to the same file
-                return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
-                  method: 'POST',
-                  body: file,
-                })
-                  .then(res => res.json())
-                  .then(({ thumbnail }) => thumbnail);
-            },
-        };
+        const {reducer: { page }} = this.props
         return(
             <div id='videoUpload'>
                 <Header 
@@ -60,7 +172,7 @@ export default class OperationCenter extends React.Component{
                 <main>
                     <nav>
                         <Menu
-                            defaultSelectedKeys={['1']}
+                            defaultSelectedKeys={page}
                             // defaultOpenKeys={['sub1']}
                             mode="inline"
                             // theme="dark"
@@ -69,11 +181,11 @@ export default class OperationCenter extends React.Component{
                         >
                             <Menu.Item key="1">
                                 <PieChartOutlined />
-                                <span>教学视频上传</span>
+                                <span>个人视频上传</span>
                             </Menu.Item>
                             <Menu.Item key="2">
                                 <DesktopOutlined />
-                                <span>个人视频上传</span>
+                                <span>教学视频上传</span>
                             </Menu.Item>
                             <Menu.Item key="3">
                                 <ContainerOutlined />
@@ -85,13 +197,11 @@ export default class OperationCenter extends React.Component{
                             </Menu.Item>
                         </Menu>
                     </nav>
-                    <div className='uploadBox'>
-                        <div className='upload' style={{display: this.state.uploadDisplay}}>
-                            <VideoUpload {...option} />
-                        </div>
-                    </div>
+                    <section className='contentBox'>
+                        {this.renderPage()}
+                    </section>
                 </main>
-                
+                <Footer />
             </div>
         )
     }

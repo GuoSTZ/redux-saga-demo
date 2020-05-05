@@ -1,0 +1,52 @@
+#commentsManagement{
+    margin: 40px 0;
+    .dataShow{
+        margin: 0 15%;
+    }
+    .videoSelect{
+        margin: 40px 15% 0;
+        .videoDetail{
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 8px 4px;
+            border-radius: 3px;
+            background-color: #F8F8F8;
+            .img{
+                a{
+                    display: block;
+                    border-radius: 3px;
+                    overflow: hidden;
+                }
+            }
+
+            .message{
+                position: relative;
+                width: 100%;
+                margin-left: 20px;
+                .data{
+                    position: absolute;
+                    bottom: 0;
+                    >span{
+                        margin-right: 20px;
+                    }
+                }
+            }
+            .commentsLink{
+                width: 220px;
+                >a{
+                    &:hover{
+                        text-decoration: underline;
+                        >span{
+                            margin-left: 6px;
+                        }
+                    }
+                    >span{
+                        transition: .2s;
+                    }
+                }
+            }
+        }
+        
+    }
+}

@@ -1,6 +1,6 @@
 import {sagaActions} from './saga';
 import {connect} from 'react-redux';
-import operationCenter from "./views/index"
+import IndexPage from "./views/index"
 import { bindActionCreators as bindActions } from 'redux';
 import { namespace } from './model';
 
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch, props) => {
 }
 
 
-export const OperationCenterContainer = connect(
+export const IndexPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(operationCenter)
+)(IndexPage)

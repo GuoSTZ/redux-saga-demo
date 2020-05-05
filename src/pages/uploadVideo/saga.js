@@ -6,15 +6,13 @@ import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
 export const sagas = Object.assign({}, {
-    changePage: function * (action){
-        yield put( reducerActions.updatePage( action.payload ) )
-    }
+    // ...
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)
 
-function* LoginRootSaga() {
+function* rootSaga() {
     yield takeSagas(sagaActions, sagas)
 }
 
-export default LoginRootSaga; // 导出rootSaga，被store.js文件import
+export default rootSaga; // 导出rootSaga，被store.js文件import

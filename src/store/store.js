@@ -18,6 +18,13 @@ import {
     namespace as personalCenterNamespace  
 } from '../pages/personalCenter/index';
 
+// operationCenter
+import { 
+    rootSaga as operationCenterRootSaga, 
+    AllReducer as operationCenterReducer, 
+    namespace as operationCenterNamespace  
+} from '../pages/operationCenter/index';
+
 
 // register
 import { 
@@ -33,8 +40,9 @@ const sagaMiddleware = createSagaMiddleware() // 执行
 const reducers = Object.assign({}, {
     // orm: createReducer(orm),
     [loginNamespace]: loginReducer,
+    [registerNamespace]: registerReducer,
     [personalCenterNamespace]: personalCenterReducer,
-    [registerNamespace]: registerReducer
+    [operationCenterNamespace]: operationCenterReducer,
 })
 
 const reducerAll = combineReducers({
@@ -47,5 +55,6 @@ export const store = createStore(
 )
 
 sagaMiddleware.run(loginRootSaga) // 执行rootSaga
-sagaMiddleware.run(personalCenterRootSaga) // 执行rootSaga
 sagaMiddleware.run(registerRootSaga) // 执行rootSaga
+sagaMiddleware.run(personalCenterRootSaga) // 执行rootSaga
+sagaMiddleware.run(operationCenterRootSaga) // 执行rootSaga

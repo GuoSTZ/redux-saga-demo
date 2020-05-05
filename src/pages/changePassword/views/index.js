@@ -1,5 +1,5 @@
 import React from 'react'
-import { Steps, Button, message } from 'antd';
+import { Steps, Button, message, Result } from 'antd';
 import { CheckCircleTwoTone } from '@ant-design/icons';
 
 import ChangePasswordStep from './steps/changePasswordStep'
@@ -9,19 +9,19 @@ import './index.less'
 
 const { Step } = Steps;
 
-class ChangePasswordDone extends React.Component{
-    render(){
-        return(
-            <div id='changePasswordDone'>
-                <div className='icon'>
-                    <CheckCircleTwoTone twoToneColor="#52c41a"style={{fontSize: 80}} />
-                </div>
-                <p>您的密码已经修改成功</p>
-                <p>即将跳转登录页面</p>
-            </div>
-        )
-    }
-}
+// class ChangePasswordDone extends React.Component{
+//     render(){
+//         return(
+//             <div id='changePasswordDone'>
+//                 <div className='icon'>
+//                     <CheckCircleTwoTone twoToneColor="#52c41a"style={{fontSize: 80}} />
+//                 </div>
+//                 <p>您的密码已经修改成功</p>
+//                 <p>即将跳转登录页面</p>
+//             </div>
+//         )
+//     }
+// }
 
 const steps = [
     {
@@ -34,7 +34,11 @@ const steps = [
     },
     {
       title: '修改完成',
-      content: <ChangePasswordDone />,
+      content: <Result
+                    status="success"
+                    title="您的密码已经修改成功"
+                    subTitle="即将跳转登录页面"
+                />
     },
 ];
 

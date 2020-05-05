@@ -3,7 +3,7 @@ import './index.less'
 
 const Footer = ({}) => (
     <footer>
-        @auther guosheng
+        @auther - guosheng
     </footer>
 )
 
