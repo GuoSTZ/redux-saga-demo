@@ -42,7 +42,8 @@ export default class RegisterPage extends React.Component{
                                 wrapperCol={{span: 12}}
                                 rules={[{ required: true, message: '昵称不能为空！' }]}>
                                 <Input 
-                                    placeholder='请输入昵称' 
+                                    placeholder='请输入昵称'
+                                    maxLength={12}
                                     prefix={<UserOutlined />}
                                 />
                             </Form.Item>

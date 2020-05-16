@@ -20,7 +20,6 @@ export function fetchPost(url, options) {
     if (options && options.body && options.body !== '') {
         options.body = JSON.stringify(options.body);
     }
-    console.log(url)
     return fetch(
         url,
         Object.assign(

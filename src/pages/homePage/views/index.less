@@ -8,13 +8,42 @@ ul{
 
     .container{
         display: flex;
+        margin-bottom: 40px;
         .nav{
             width: 20%;
+            .ant-affix{
+                margin-top: 50px;
+                padding: 0px 120px 0px 80px;
+                .ant-anchor-wrapper{
+                    padding: 8px 8px 8px 3px;
+                    border: 1px solid #e7e7e7;
+                    border-radius: 8px;
+                }
+            }
         }
         .courses{
             width: 65%;
+            .ant-list-header{
+                padding-top: 24px;
+                padding-bottom: 0;
+                >div{
+                    .label{
+                        color: #000;
+                        font-size: 18px;
+                        border-bottom: 4px solid #25C1FF;
+                    }
+                    .getMore{
+                        float: right;
+                        cursor: pointer;
+                    }
+                }
+                
+            }
             
         }
 
+    }
+    .ant-card-body{
+        padding: 12px;
     }
 }

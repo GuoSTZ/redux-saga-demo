@@ -41,8 +41,8 @@ export default class MyWork extends React.Component{
                             hoverable
                             cover={
                                 <img
-                                alt="video"
-                                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                                    alt="video"
+                                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                                 />
                             }
                         >

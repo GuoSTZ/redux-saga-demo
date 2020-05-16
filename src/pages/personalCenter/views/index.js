@@ -71,7 +71,7 @@ export default class PersonalCenter extends React.Component{
                     <Affix offsetTop={80}>
                         <nav>
                             <Menu
-                                defaultSelectedKeys={['1']}
+                                defaultSelectedKeys={page}
                                 // defaultOpenKeys={['sub1']}
                                 mode="inline"
                                 // theme="dark"
@@ -101,6 +101,10 @@ export default class PersonalCenter extends React.Component{
                                 <Menu.Item key="6">
                                     <ContainerOutlined />
                                     <span>观看历史</span>
+                                </Menu.Item>
+                                <Menu.Item key="7">
+                                    <ContainerOutlined />
+                                    <span>教师认证</span>
                                 </Menu.Item>
                             </Menu>
                             <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>

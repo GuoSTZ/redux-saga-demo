@@ -1,25 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
+import { Form, Input, Button, Checkbox, Row, Col, Message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { pinyin } from '../../../components/convertToPinyin/index'
+import Footer from '../../../components/footer/index'
 import './index.less'
 
 export default class LoginPage extends React.Component{
     componentDidMount(){
-        const { actions } = this.props
+        const { actions, history } = this.props
         actions.fetchCheckCode(this.createCode(4))
-        let obj = {
-            account: 'admin',
-            password: '123456'
-        }
-        actions.login(obj)
     }
     onFinish = values => {
-        const { reducer: {checkCode} } = this.props
+        const { actions, reducer: {checkCode} } = this.props
         if(checkCode.toLowerCase() === values.checkCode){
-            console.log('验证码正确')
+            actions.login(Object.assign( {}, values, { props: this.props }))
+        } else {
+            Message.warning('验证码输入错误')
         }
-        console.log('Success:', values);
+        this.refreshCheckCode();
     };
     // 生成验证码
     createCode(codeLength) {
@@ -41,7 +40,12 @@ export default class LoginPage extends React.Component{
         actions.fetchCheckCode(this.createCode(4))
     }
     render(){
-        const { reducer: {checkCode} } = this.props
+        const { reducer: {checkCode, loginMessage} } = this.props
+        // console.log(pinyin.getFullChars('测试 语句 '))
+        if(loginMessage === 'false'){
+            Message.error('账号或者密码输入错误！')
+            // 在此处对账号和密码的规则域进行强制的检查
+        }
         return(
             <div id="loginPage">
                 <header>
@@ -61,7 +65,7 @@ export default class LoginPage extends React.Component{
                             name="user"
                             onFinish={this.onFinish}>
                             <Form.Item
-                                name="username"
+                                name="account"
                                 wrapperCol={{span: 24}}
                                 rules={[{ required: true, message: '用户名不能为空！' }]}>
                                 <Input 
@@ -86,7 +90,7 @@ export default class LoginPage extends React.Component{
                                     <Form.Item
                                         name="checkCode"
                                         rules={[{ required: true, message: '请输入验证码！' }]}>
-                                        <Input placeholder="请输入验证码"/>
+                                        <Input placeholder="请输入验证码" onPressEnter={null}/>
                                     </Form.Item>
                                 </Col>
                                 <Col span={6} offset={1}>
@@ -97,11 +101,11 @@ export default class LoginPage extends React.Component{
                                 </Col>
                             </Row>
 
-                            <Form.Item 
+                            {/* <Form.Item 
                                 name="remember" 
                                 valuePropName="checked">
                                 <Checkbox>记住密码</Checkbox>
-                            </Form.Item>
+                            </Form.Item> */}
 
                             <Form.Item wrapperCol={{span: 24}}>
                                 <Button 
@@ -119,9 +123,7 @@ export default class LoginPage extends React.Component{
 
                     </div>
                 </main>
-                <footer>
-                    @auther guosheng
-                </footer>
+                <Footer />
             </div>
         )
     }

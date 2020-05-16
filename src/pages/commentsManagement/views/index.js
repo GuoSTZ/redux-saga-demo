@@ -188,7 +188,7 @@ export default class CommentManagement extends React.Component{
                             </section>
                         </section>
                         <section className='commentsLink'>
-                            <Link to=''>前往视频评论页面<RightOutlined /></Link>
+                            <Link to='/videoPage'>前往视频页面<RightOutlined /></Link>
                         </section>
                     </section>
 

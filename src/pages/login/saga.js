@@ -14,8 +14,16 @@ export const sagas = Object.assign({}, {
         yield call(Api.fetchData);
     },
     login: function * (action) {
-        let data = yield call(Api.login, action.payload);
-        console.log(data)
+        let props = action.payload.props
+        let payload = {
+            account: action.payload.account,
+            password: action.payload.password
+        }
+        let data = yield call(Api.login, payload);
+        yield put(reducerActions.updateLoginMessage(data))
+        if(data === true){
+            props.history.push('/homePage')
+        }
     },
 })
 

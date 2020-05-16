@@ -2,16 +2,27 @@ import React from 'react'
 import { Comment, Avatar, Input } from 'antd';
 import Video from '../../../components/video'
 import CourseComment from '../../../components/courseComment'
-import CommentEditor from '../../../components/commentEditor'
 import Header from '../../../components/header'
 import './index.less'
 
 
 export default class VideoPage extends React.Component{
+    componentDidMount(){
+        const { actions, history } = this.props
+        actions.fetchComments({id: 1});
+        history.push('/personalCenter')
+    }
     componentWillUnmount(){
-
+        
+    }
+    renderChildComment(array){
+        return array.map(item=>(
+            <CourseComment commentOption={item}>
+            </CourseComment>
+        ))
     }
     render(){
+        const { reducer: { comments } } = this.props
         return (
             <div>
                 <Header 
@@ -21,23 +32,39 @@ export default class VideoPage extends React.Component{
                     <div className='title' style={{height: '100px',width: '200px'}}></div>
 
                     <Video 
-                        src='https://guostz.gitee.io/graduationprojectresource/resource/videos/v14test.mp4'
+                        src='http://guostz.gitee.io/graduationprojectresource/resource/videos/v14test.mp4'
                     />
 
                     <div className='videoMessage' style={{height: '100px',width: '200px'}}></div>
 
                     <div className='userModule'>
-                        <div className='content' style={{height: '300px'}}>
+                        <div className='content'>
+                            {
+                                comments !== undefined && comments.map(item => (
+                                    <CourseComment commentOption={item}>
+                                        {
+                                            item.userReplyList !== undefined ?  this.renderChildComment(item.userReplyList) : null
+                                        }
+                                    </CourseComment>
+                                ))
+                            }
+                            {/* <CourseComment>
+                                <CourseComment>
+                                </CourseComment>
+                            </CourseComment>
 
                             <CourseComment>
                                 <CourseComment>
-                                    <CommentEditor 
-                                        onChange={()=>{console.log('onChange')}}
-                                        onSubmit={()=>{console.log('onSubmit')}}
-                                        submitting={false}
-                                    />
                                 </CourseComment>
-                            </CourseComment>
+                                <CourseComment>
+                                </CourseComment>
+                                <CourseComment>
+                                </CourseComment>
+                                <CourseComment>
+                                </CourseComment>
+                                <CourseComment>
+                                </CourseComment>
+                            </CourseComment> */}
 
                         </div>
                         <div className='ranking'>

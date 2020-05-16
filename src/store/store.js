@@ -25,13 +25,26 @@ import {
     namespace as operationCenterNamespace  
 } from '../pages/operationCenter/index';
 
-
 // register
 import { 
     rootSaga as registerRootSaga, 
     AllReducer as registerReducer, 
     namespace as registerNamespace  
 } from '../pages/register/index';
+
+// video
+import { 
+    rootSaga as videoRootSaga, 
+    AllReducer as videoReducer, 
+    namespace as videoNamespace  
+} from '../pages/video/index';
+
+// homePage
+import { 
+    rootSaga as homePageRootSaga, 
+    AllReducer as homePageReducer, 
+    namespace as homePageNamespace  
+} from '../pages/homePage/index';
 
 
 
@@ -43,6 +56,8 @@ const reducers = Object.assign({}, {
     [registerNamespace]: registerReducer,
     [personalCenterNamespace]: personalCenterReducer,
     [operationCenterNamespace]: operationCenterReducer,
+    [videoNamespace]: videoReducer,
+    [homePageNamespace]: homePageReducer,
 })
 
 const reducerAll = combineReducers({
@@ -55,6 +70,8 @@ export const store = createStore(
 )
 
 sagaMiddleware.run(loginRootSaga) // 执行rootSaga
-sagaMiddleware.run(registerRootSaga) // 执行rootSaga
-sagaMiddleware.run(personalCenterRootSaga) // 执行rootSaga
-sagaMiddleware.run(operationCenterRootSaga) // 执行rootSaga
+sagaMiddleware.run(registerRootSaga)
+sagaMiddleware.run(personalCenterRootSaga)
+sagaMiddleware.run(operationCenterRootSaga)
+sagaMiddleware.run(videoRootSaga)
+sagaMiddleware.run(homePageRootSaga)
