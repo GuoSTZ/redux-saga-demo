@@ -11,15 +11,22 @@ export default class LoginPage extends React.Component{
     componentDidMount(){
         const { actions, history } = this.props
         actions.fetchCheckCode(this.createCode(4))
-        console.log(this.formRef)
     }
     onFinish = values => {
         const { actions, reducer: {checkCode} } = this.props
         if(checkCode.toLowerCase() === values.checkCode){
             actions.login(Object.assign( {}, values, { props: this.props }))
+            let obj = {
+                id: null,
+                account: this.formRef.current.getFieldValue('account'),
+                password: this.formRef.current.getFieldValue('password'),
+                rememberPassword: false,
+                // time: 43200
+                time: 1800 // 开发环境下的信息失效时间 - 半小时           
+            }
+            actions.saveLoginMessage(obj)
         } else {
             Message.warning('验证码输入错误')
-            
         }
         this.refreshCheckCode();
         this.formRef.current.setFieldsValue({'checkCode': ''})
@@ -44,13 +51,13 @@ export default class LoginPage extends React.Component{
         actions.fetchCheckCode(this.createCode(4))
     }
     render(){
-        const { reducer: {checkCode, loginMessage} } = this.props
+        const { reducer: {checkCode, loginStatus} } = this.props
         // console.log(pinyin.getFullChars('测试 语句 '))
-        if(loginMessage === false){
+        if(loginStatus === false){
             Message.error('账号或者密码输入错误！')
             // 在此处对账号和密码的规则域进行强制的检查
         }
-        if(loginMessage === undefined){
+        if(loginStatus === undefined){
             Message.error('后端服务尚未开启，请稍后重试！')
         }
         return(

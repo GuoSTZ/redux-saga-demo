@@ -9,6 +9,12 @@ export const reduces = Object.assign(defaultReducer(), {
             checkCode: action.payload
         }
     },
+    updateLoginStatus: (state, action) => {
+        return {
+            ...state,
+            loginStatus: action.payload
+        }
+    },
     updateLoginMessage: (state, action) => {
         return {
             ...state,
@@ -21,7 +27,8 @@ export const reducerActions = createDefineActions(reduces, namespace)
 
 export const initialState = Object.assign({}, defaultState, {
     checkCode: '',
-    loginMessage: '',
+    loginStatus: '',
+    loginMessage: {}
 })
 
 export default reducerCreator(megerActionReducer(reduces, reducerActions), initialState)

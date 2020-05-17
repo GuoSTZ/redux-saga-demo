@@ -10,3 +10,15 @@ export function login(params){
     body: params
   });
 }
+
+export function saveLoginMessage(params){
+  return fetchPost(`redis/saveLoginMessage`, {
+    body: params
+  });
+}
+
+export function fetchLoginMessage(params){
+  return fetchGet(`redis/getLoginMessage`, {
+    body: params
+  });
+}

@@ -21,11 +21,32 @@ export const sagas = Object.assign({}, {
         }
         let data = yield call(Api.login, payload);
         console.log(data)
-        yield put(reducerActions.updateLoginMessage(data))
+        yield put(reducerActions.updateLoginStatus(data))
         if(data === true){
             props.history.push('/homePage')
         }
     },
+    // 存储登录信息
+    saveLoginMessage: function * (action){
+        let payload = {
+            id: action.payload.id,
+            account: action.payload.account,
+            password: action.payload.password,
+            rememberPassword: action.payload.rememberPassword, // 是否记住密码
+            time: action.payload.time // 信息失效时间
+        }
+        let data = yield call(Api.saveLoginMessage, payload);
+        if(data !== undefined){
+            yield put(reducerActions.updateLoginMessage(data))
+        }
+    },
+    // 获取登录信息 
+    fetchLoginMessage: function * (action){
+        let data = yield call(Api.fetchLoginMessage, action.payload);
+        if(data !== undefined){
+            yield put(reducerActions.updateLoginMessage(data))
+        }
+    }
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)
