@@ -6,13 +6,8 @@ import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
 export const sagas = Object.assign({}, {
-    fetchType: function * (action){
-        let payload = {
-            id: action.payload.typeId
-        }
-        let data = yield call(Api.fetchType, payload);
-        if(data !== undefined)
-            yield put(reducerActions.updateType(data))
+    test: function * (action) {
+        console.log(action)
     }
 })
 

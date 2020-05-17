@@ -6,19 +6,42 @@ ul{
 
 #homePage{
 
+    .swiper{
+        margin-top: 30px;
+        padding: 0 5%;
+        .ant-carousel .slick-slide {
+            text-align: center;
+            height: 250px;
+            line-height: 250px;
+            background: #44bcf3;
+            overflow: hidden;
+        }
+          
+        .ant-carousel .slick-slide h3 {
+            color: #fff;
+        }
+    }
+
+
     .container{
         display: flex;
         margin-bottom: 40px;
         .nav{
             width: 20%;
-            .ant-affix{
-                margin-top: 50px;
-                padding: 0px 120px 0px 80px;
-                .ant-anchor-wrapper{
-                    padding: 8px 8px 8px 3px;
-                    border: 1px solid #e7e7e7;
-                    border-radius: 8px;
-                }
+            // .ant-affix{
+            //     margin-top: 50px;
+            //     padding: 0px 120px 0px 80px;
+            //     .ant-anchor-wrapper{
+            //         padding: 8px 8px 8px 3px;
+            //         border: 1px solid #e7e7e7;
+            //         border-radius: 8px;
+            //     }
+            // }
+            .ant-anchor-wrapper{
+                padding: 8px 4px;
+                margin: 50px 100px 0 80px;
+                border: 1px solid #e7e7e7;
+                border-radius: 8px;
             }
         }
         .courses{
@@ -32,16 +55,22 @@ ul{
                         font-size: 18px;
                         border-bottom: 4px solid #25C1FF;
                     }
-                    .getMore{
+                    >a{
                         float: right;
-                        cursor: pointer;
+                        margin-right: 4px;
+                        >span{
+                            transition: .2s;
+                        }
+                        &:hover{
+                            >span{
+                                margin-left: 4px;
+                                transform: translateX(4px);
+                            }
+                        }
                     }
                 }
-                
             }
-            
         }
-
     }
     .ant-card-body{
         padding: 12px;

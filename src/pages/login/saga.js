@@ -20,6 +20,7 @@ export const sagas = Object.assign({}, {
             password: action.payload.password
         }
         let data = yield call(Api.login, payload);
+        console.log(data)
         yield put(reducerActions.updateLoginMessage(data))
         if(data === true){
             props.history.push('/homePage')

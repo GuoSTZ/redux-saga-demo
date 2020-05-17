@@ -46,18 +46,31 @@ import {
     namespace as homePageNamespace  
 } from '../pages/homePage/index';
 
+// allType
+import { 
+    rootSaga as allTypeRootSaga, 
+    AllReducer as allTypeReducer, 
+    namespace as allTypeNamespace  
+} from '../pages/allType/index';
 
+// coursePage
+import { 
+    rootSaga as coursePageRootSaga, 
+    AllReducer as coursePageReducer, 
+    namespace as coursePageNamespace  
+} from '../pages/coursePage/index';
 
 const sagaMiddleware = createSagaMiddleware() // 执行
 
 const reducers = Object.assign({}, {
-    // orm: createReducer(orm),
     [loginNamespace]: loginReducer,
-    [registerNamespace]: registerReducer,
     [personalCenterNamespace]: personalCenterReducer,
     [operationCenterNamespace]: operationCenterReducer,
+    [registerNamespace]: registerReducer,
     [videoNamespace]: videoReducer,
     [homePageNamespace]: homePageReducer,
+    [allTypeNamespace]: allTypeReducer,
+    [coursePageNamespace]: coursePageReducer,
 })
 
 const reducerAll = combineReducers({
@@ -69,9 +82,12 @@ export const store = createStore(
     applyMiddleware(sagaMiddleware, logger), // 中间件，加载sagaMiddleware
 )
 
+
 sagaMiddleware.run(loginRootSaga) // 执行rootSaga
 sagaMiddleware.run(registerRootSaga)
 sagaMiddleware.run(personalCenterRootSaga)
 sagaMiddleware.run(operationCenterRootSaga)
 sagaMiddleware.run(videoRootSaga)
 sagaMiddleware.run(homePageRootSaga)
+sagaMiddleware.run(allTypeRootSaga)
+sagaMiddleware.run(coursePageRootSaga)

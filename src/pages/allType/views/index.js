@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, Tag, BackTop, Pagination, List, Card, Drawer, Button, Affix } from 'antd';
+import { Radio, Tag, BackTop, Pagination, List, Card, Drawer, Button } from 'antd';
 import Header from '../../../components/header'
 import Footer from '../../../components/footer'
 
@@ -12,14 +12,21 @@ export default class AllType extends React.Component{
     state = {
         selectedTags: [],
         selectedTagStyle: {},
-        visible: false
+        visible: false,
     };
+
+    componentDidMount(){
+        const { actions, location: {search} } = this.props
+        let str = 'id='
+        actions.fetchType( {typeId: search.slice(search.indexOf(str) + str.length, search.length)} )
+    }
     
     handleChange(tag, checked) {
         const { selectedTags } = this.state;
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
-        console.log('You are interested in: ', nextSelectedTags);
-        this.setState({ selectedTags: nextSelectedTags });
+        this.setState({ 
+            selectedTags: nextSelectedTags 
+        });
     }
     onChange = checkedValues => {
         console.log('checked = ', checkedValues);
@@ -45,12 +52,14 @@ export default class AllType extends React.Component{
 
     render(){
         const options = [
-            { label: '正在直播', value: '正在直播' },  // 状态，检查有什么课程正在直播
-            { label: 'VIP课程', value: 'VIP课程' },   // 可以理解为需要付费的课程
-            { label: '通用课程', value: '通用课程' },  // 可以理解为基础课程
-            { label: '免费课程', value: '免费课程' },  // 可以理解为不需要付费的课程
-            { label: '直播课程', value: '直播课程' },  // 以直播的形式进行教学
-            { label: '视频课程', value: '视频课程' },  // 以视频的形式进行教学
+            { id: 8, label: '正在直播', value: 8 },  // 状态，检查有什么课程正在直播
+            { id: 1, label: 'VIP课程', value: 1 },   // 可以理解为需要付费的课程
+            { id: 2, label: '通用课程', value: 2 },  // 通用课程
+            { id: 3, label: '基础课程', value: 3 },  // 基础课程
+            { id: 4, label: '免费课程', value: 4 },  // 可以理解为不需要付费的课程
+            { id: 5, label: '直播课程', value: 5 },  // 以直播的形式进行教学
+            { id: 6, label: '视频课程', value: 6 },  // 以视频的形式进行教学
+            { id: 7, label: '个人视频', value: 7 },  // 学员自行上传的视频
         ];
         const tagsFromServer = [
             '分类一', '分类二', '分类三', '分类四',
@@ -134,6 +143,9 @@ export default class AllType extends React.Component{
                 teacher: '小王老师'
             }
         ];
+        const {location: {search}} = this.props
+        let radioDefaultValue = search.slice(search.indexOf('id=') + 'id='.length, search.length)
+        console.log(this.props)
         return(
             <section id='allType'>
                 <Header 
@@ -152,7 +164,7 @@ export default class AllType extends React.Component{
                             <CheckableTag
                                 key={tag}
                                 checked={this.state.selectedTags.indexOf(tag) > -1}
-                                onChange={checked => this.handleChange(tag, checked)}
+                                onChange={ checked => this.handleChange(tag, checked) }
                             >
                                 {tag}
                             </CheckableTag>
@@ -162,7 +174,7 @@ export default class AllType extends React.Component{
                     <section className='courses'>
                         <section className='category'>
                             <span>课程类别</span>
-                            <Checkbox.Group options={options} onChange={this.onChange} />
+                            <Radio.Group options={options} onChange={this.onChange} defaultValue={parseInt(radioDefaultValue)} />
                         </section>
                         <section className='container'>
                             <List
@@ -185,7 +197,7 @@ export default class AllType extends React.Component{
                                 )}
                             />
 
-                            <Pagination defaultCurrent={6} total={200} />
+                            <Pagination defaultCurrent={1} total={200} />
 
                         </section>
                     </section>

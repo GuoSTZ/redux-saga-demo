@@ -6,9 +6,3 @@ export function fetchData(params) {
       body: params
     });
 }
-
-export function fetchType(params){
-  return fetchGet(`type/getTypeById`, {
-    body: params
-  });
-}

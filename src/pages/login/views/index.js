@@ -7,9 +7,11 @@ import Footer from '../../../components/footer/index'
 import './index.less'
 
 export default class LoginPage extends React.Component{
+    formRef = React.createRef();
     componentDidMount(){
         const { actions, history } = this.props
         actions.fetchCheckCode(this.createCode(4))
+        console.log(this.formRef)
     }
     onFinish = values => {
         const { actions, reducer: {checkCode} } = this.props
@@ -17,8 +19,10 @@ export default class LoginPage extends React.Component{
             actions.login(Object.assign( {}, values, { props: this.props }))
         } else {
             Message.warning('验证码输入错误')
+            
         }
         this.refreshCheckCode();
+        this.formRef.current.setFieldsValue({'checkCode': ''})
     };
     // 生成验证码
     createCode(codeLength) {
@@ -42,9 +46,12 @@ export default class LoginPage extends React.Component{
     render(){
         const { reducer: {checkCode, loginMessage} } = this.props
         // console.log(pinyin.getFullChars('测试 语句 '))
-        if(loginMessage === 'false'){
+        if(loginMessage === false){
             Message.error('账号或者密码输入错误！')
             // 在此处对账号和密码的规则域进行强制的检查
+        }
+        if(loginMessage === undefined){
+            Message.error('后端服务尚未开启，请稍后重试！')
         }
         return(
             <div id="loginPage">
@@ -63,11 +70,15 @@ export default class LoginPage extends React.Component{
 
                         <Form 
                             name="user"
+                            ref={this.formRef}
                             onFinish={this.onFinish}>
                             <Form.Item
                                 name="account"
                                 wrapperCol={{span: 24}}
-                                rules={[{ required: true, message: '用户名不能为空！' }]}>
+                                rules={[
+                                    { required: true, message: '用户名不能为空！' },
+                                    { max: 20, message: '最长12位!' }
+                                ]}>
                                 <Input 
                                     placeholder="请输入用户名" 
                                     prefix={<UserOutlined />}

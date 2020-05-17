@@ -10,14 +10,14 @@ export default class VideoPage extends React.Component{
     componentDidMount(){
         const { actions, history } = this.props
         actions.fetchComments({id: 1});
-        history.push('/personalCenter')
+        // history.push('/personalCenter')
     }
     componentWillUnmount(){
         
     }
     renderChildComment(array){
         return array.map(item=>(
-            <CourseComment commentOption={item}>
+            <CourseComment commentOption={item} key={item.id}>
             </CourseComment>
         ))
     }
@@ -39,9 +39,10 @@ export default class VideoPage extends React.Component{
 
                     <div className='userModule'>
                         <div className='content'>
+                            {console.log(comments)}
                             {
-                                comments !== undefined && comments.map(item => (
-                                    <CourseComment commentOption={item}>
+                                comments !== undefined && comments.map((item, index) => (
+                                    <CourseComment commentOption={item} key={index}>
                                         {
                                             item.userReplyList !== undefined ?  this.renderChildComment(item.userReplyList) : null
                                         }

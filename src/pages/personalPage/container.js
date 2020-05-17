@@ -1,6 +1,6 @@
 import {sagaActions} from './saga';
 import {connect} from 'react-redux';
-import AllType from "./views/index"
+import PersonalPage from "./views/index"
 import { bindActionCreators as bindActions } from 'redux';
 import { namespace } from './model';
 
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch, props) => {
 }
 
 
-export const AllTypeContainer = connect(
+export const PersonalPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(AllType)
+)(PersonalPage)
