@@ -8,8 +8,9 @@ import {
   ContainerOutlined,
 } from '@ant-design/icons';
 import Header from '../../../components/header'
-import ChangeMessage from '../../changeMessage/views/index'
-import ChangePassword from '../../changePassword/views/index'
+import { ChangeMessageContainer } from '../../changeMessage/container'
+import { BrowsingHistoryContainer } from '../../browsingHistory/container'
+import { ChangePasswordContainer } from '../../changePassword/container'
 import MyCourse from '../../myCourse/views/index'
 import MyWork from '../../myWork/views/index'
 import BrowsingHistory from '../../browsingHistory/views/index'
@@ -23,7 +24,7 @@ const PAGES = {
     changePassword: '2',
     myCourse: '3',
     myWork: '5',
-    browsinghistory: '6'
+    browsinghistory: '7'
 }
 
 export default class PersonalCenter extends React.Component{
@@ -43,29 +44,33 @@ export default class PersonalCenter extends React.Component{
         actions.changePage(key);
     }
 
-    renderPage(){
+    renderPage(user){
         const {reducer: {page}} = this.props
         switch(page){
             case PAGES.changeMessage:
-                return <ChangeMessage />
+                return <ChangeMessageContainer user={user}/>
             case PAGES.changePassword:
-                return <ChangePassword />
+                return <ChangePasswordContainer user={user} />
             case PAGES.myCourse:
                 return <MyCourse />
             case PAGES.myWork:
                 return <MyWork />
             case PAGES.browsinghistory:
-                return <BrowsingHistory />
+                return <BrowsingHistoryContainer />
         }
         
     }
     
     render() {
         const { reducer: { page } } = this.props
+        let user = null
+        if(sessionStorage.getItem('user') !== null){
+            user = JSON.parse(sessionStorage.getItem('user'))
+        }
         return (
             <div id='personalCenter'>
                 <Header 
-                    user={{src:''}}
+                    user={user}
                 />
                 <main>
                     <Affix offsetTop={80}>
@@ -100,9 +105,13 @@ export default class PersonalCenter extends React.Component{
                                 </Menu.Item>
                                 <Menu.Item key="6">
                                     <ContainerOutlined />
-                                    <span>观看历史</span>
+                                    <span>我的消息</span>
                                 </Menu.Item>
                                 <Menu.Item key="7">
+                                    <ContainerOutlined />
+                                    <span>观看历史</span>
+                                </Menu.Item>
+                                <Menu.Item key="8">
                                     <ContainerOutlined />
                                     <span>教师认证</span>
                                 </Menu.Item>
@@ -113,7 +122,7 @@ export default class PersonalCenter extends React.Component{
                         </nav>
                     </Affix>
                     <div className='pages'>
-                        {this.renderPage()} 
+                        {this.renderPage(user)} 
                     </div>
                 </main>
             </div>

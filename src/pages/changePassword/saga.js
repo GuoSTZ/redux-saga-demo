@@ -6,7 +6,15 @@ import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
 export const sagas = Object.assign({}, {
-    // ...
+    fetchPassword: function * (action) {
+        let payload = {
+            userId: action.payload.id,
+            password: action.payload.oldPassword,
+            newPassword: action.payload.newPassword
+        }
+        let data = yield call(Api.fetchPassword, payload)
+        console.log(data, 'fetchPassword')
+    }
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)

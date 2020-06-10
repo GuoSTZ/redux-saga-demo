@@ -1,14 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router,Route} from 'react-router-dom';
+import { BrowserRouter as Router,Route, Switch, Redirect} from 'react-router-dom';
 
 import { LoginPageContainer } from './pages/login/container'
-import  { RegisterPageContainer }  from './pages/register/container'
+import { RegisterPageContainer }  from './pages/register/container'
 import { PersonalCenterContainer } from './pages/personalCenter/container'
 import { OperationCenterContainer } from './pages/operationCenter/container'
-import {VideoPageContainer} from './pages/video/container'
-import {HomePageContainer} from './pages/homePage/container'
-import {AllTypeContainer} from './pages/allType/container'
-import {CoursePageContainer} from './pages/coursePage/container'
+import { VideoPageContainer } from './pages/video/container'
+import { HomePageContainer } from './pages/homePage/container'
+import { AllTypeContainer } from './pages/allType/container'
+import { CoursePageContainer } from './pages/coursePage/container'
+import { PersonalPageContainer } from './pages/personalPage/container'
 
 
 import DataStatistics from './pages/works/dataStatistics/views/index'
@@ -28,6 +29,7 @@ const App = () => (
         <Route exact path="/homePage" component={HomePageContainer} />
         <Route exact path="/allType" component={AllTypeContainer} />
         <Route exact path="/coursePage" component={CoursePageContainer} />
+        <Route exact path="/personalPage" component={PersonalPageContainer} />
       </div>
 		</Router>
   </div>

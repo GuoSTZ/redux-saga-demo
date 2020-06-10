@@ -8691,6 +8691,13 @@ react-app-rewired@^2.1.3:
     dotenv "^6.2.0"
     semver "^5.6.0"
 
+react-beforeunload@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-beforeunload/-/react-beforeunload-2.2.1.tgz#b30778a7110a6469ad6d449fa9d387c54ddec72e"
+  integrity sha512-qydpYQuGUaB1C5EP2EFN0YjPo9kgV10Z4suIZ79GIhp0DWNJxHyuR8BiTViOBltTIn9PwlpSqX4fE3uprsdqKA==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-dev-utils@^9.0.1:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-9.1.0.tgz#3ad2bb8848a32319d760d0a84c56c14bdaae5e81"

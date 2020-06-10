@@ -1,0 +1,87 @@
+#personalPage{
+    background-color: #f7f8fa;
+    main{
+        padding: 80px 5% 40px;
+        .user{
+            position: relative;
+            height: 150px;
+            box-shadow: 0 1px 3px 1px #d9dfe9;
+            background-color: #fff;
+            .ant-avatar{
+                position: absolute;
+                top: -50px;
+                left: 20px;
+                // box-shadow: 0 1px 3px 1px #d9dfe9;
+                box-shadow: 0 1px 3px 1px rgba(0,0,0,0.5);
+            }
+            >section:nth-of-type(1){
+                padding-top: 20px;
+                >p:nth-of-type(1){
+                    font-size: 18px;
+                    font-weight: 600;
+                }
+            }
+            .registerTime{
+                position: absolute;
+                bottom: 10px;
+                right: 20px;
+            }
+            .share{
+                position: absolute;
+                top: 10px;
+                right: 20px;
+            }
+        }
+        .container{
+            display: flex;
+            margin-top: 30px;
+            .dynamic{
+                display: flex;
+                width: 80%;
+                background-color: #fff;
+                .courses{
+                    width: 40%;
+                    margin: 8px;
+                    >:nth-child(1){
+                        padding-left: 4px;
+                        box-shadow: 0 1px 3px 1px #d9dfe9;
+                    }
+                    >:nth-child(2){
+                        margin-top: 10px;
+                        padding-left: 4px;
+                        box-shadow: 0 1px 3px 1px #d9dfe9;
+                    }
+                    
+                }
+                .comments{
+                    width: 60%;
+                    margin: 8px;
+                }
+            }
+            .dataShow{
+                width: 20%;
+                min-height: 300px;
+                margin-left: 20px;
+                padding: 8px;
+                background-color: #fff;
+                .like{
+                    display: flex;
+                    width: 100%;
+                    margin-top: 10px;
+                    >section{
+                        width: 33%;
+                        .ant-statistic{
+                            margin-right: 10px;
+                            .ant-statistic-content{
+                                font-size: 18px;
+                            }
+                        }
+                    } 
+                }
+                .vistor{
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+}

@@ -9,22 +9,15 @@ import './index.less'
 export default class LoginPage extends React.Component{
     formRef = React.createRef();
     componentDidMount(){
-        const { actions, history } = this.props
+        const { actions } = this.props
+        console.log(sessionStorage,'****')
+
         actions.fetchCheckCode(this.createCode(4))
     }
     onFinish = values => {
-        const { actions, reducer: {checkCode} } = this.props
+        const { actions, reducer: {checkCode, loginMessage} } = this.props
         if(checkCode.toLowerCase() === values.checkCode){
             actions.login(Object.assign( {}, values, { props: this.props }))
-            let obj = {
-                id: null,
-                account: this.formRef.current.getFieldValue('account'),
-                password: this.formRef.current.getFieldValue('password'),
-                rememberPassword: false,
-                // time: 43200
-                time: 1800 // 开发环境下的信息失效时间 - 半小时           
-            }
-            actions.saveLoginMessage(obj)
         } else {
             Message.warning('验证码输入错误')
         }
@@ -50,24 +43,29 @@ export default class LoginPage extends React.Component{
         const { actions } = this.props
         actions.fetchCheckCode(this.createCode(4))
     }
-    render(){
-        const { reducer: {checkCode, loginStatus} } = this.props
+    renderStatusMessage(){
+        const { actions,reducer: { loginStatus} } = this.props
         // console.log(pinyin.getFullChars('测试 语句 '))
         if(loginStatus === false){
             Message.error('账号或者密码输入错误！')
+            actions.changeLoginStatus()
             // 在此处对账号和密码的规则域进行强制的检查
+            // this.formRef.current.validateFields(['account'])
         }
         if(loginStatus === undefined){
             Message.error('后端服务尚未开启，请稍后重试！')
+            actions.changeLoginStatus()
         }
+    }
+    render(){
+        const { reducer: {checkCode} } = this.props
+        this.renderStatusMessage()
         return(
             <div id="loginPage">
                 <header>
-                    {/* <img src='../../resources/login/title.jpg' /> */}
                     <img src='http://guostz.gitee.io/graduationprojectresource/resource/images/loginPage/title.jpg' />
                 </header>
                 <main className="container">
-                    {/* <img src='./resources/login/bg.png' /> */}
                     <img src='http://guostz.gitee.io/graduationprojectresource/resource/images/loginPage/bg.png' />
                     <div className="formBox">
 

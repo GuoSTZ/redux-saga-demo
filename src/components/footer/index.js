@@ -3,7 +3,8 @@ import './index.less'
 
 const Footer = ({}) => (
     <footer>
-        @auther - guosheng
+        <span>@auther - guosheng</span>
+        <span><a href="http://beian.miit.gov.cn" target="view_window">	浙ICP备19012881号-2 </a></span>
     </footer>
 )
 

@@ -6,8 +6,10 @@ import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
 export const sagas = Object.assign({}, {
-    test: function * (action) {
-        console.log(action)
+    changeAutograph: function * (action){
+        let data = yield call(Api.changeAutograph, action.payload)
+        yield put(reducerActions.updateLoginMessage(data))
+        sessionStorage.setItem('user', JSON.stringify(data))
     }
 })
 

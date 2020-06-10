@@ -11,14 +11,27 @@ export function login(params){
   });
 }
 
+export function redisLogin(params){
+  return fetchPost(`redis/login`, {
+    body: params
+  });
+}
+
+export function redisSave(params){
+  return fetchPost(`redis/save`, {
+    body: params
+  });
+}
+
 export function saveLoginMessage(params){
   return fetchPost(`redis/saveLoginMessage`, {
     body: params
   });
 }
 
-export function fetchLoginMessage(params){
-  return fetchGet(`redis/getLoginMessage`, {
+export function isKeyExist(params){
+  return fetchGet(`redis/isKeyExist`, {
     body: params
   });
 }
+

@@ -18,7 +18,9 @@ export default class AllType extends React.Component{
     componentDidMount(){
         const { actions, location: {search} } = this.props
         let str = 'id='
-        actions.fetchType( {typeId: search.slice(search.indexOf(str) + str.length, search.length)} )
+        if(search !== ''){
+            actions.fetchType( {typeId: search.slice(search.indexOf(str) + str.length, search.length)} )
+        }
     }
     
     handleChange(tag, checked) {
@@ -62,12 +64,12 @@ export default class AllType extends React.Component{
             { id: 7, label: '个人视频', value: 7 },  // 学员自行上传的视频
         ];
         const tagsFromServer = [
-            '分类一', '分类二', '分类三', '分类四',
-            '分类五', '分类六', '分类七', '分类八',
-            '分类九', '分类十', '分类十一', '分类十二',
-            '分类十三', '分类十四', '分类十五', '分类十六',
-            '分类十七', '分类十八', '分类十九', '分类二十',
-            '分类二十一', '分类二十二', '分类二十三', '分类二十四',
+            '标签一', '标签二', '标签三', '标签四',
+            '标签五', '标签六', '标签七', '标签八',
+            '标签九', '标签十', '标签十一', '标签十二',
+            '标签十三', '标签十四', '标签十五', '标签十六',
+            '标签十七', '标签十八', '标签十九', '标签二十',
+            '标签二十一', '标签二十二', '标签二十三', '标签二十四',
         ];
         const courseData = [
             {
@@ -145,7 +147,6 @@ export default class AllType extends React.Component{
         ];
         const {location: {search}} = this.props
         let radioDefaultValue = search.slice(search.indexOf('id=') + 'id='.length, search.length)
-        console.log(this.props)
         return(
             <section id='allType'>
                 <Header 
@@ -154,12 +155,12 @@ export default class AllType extends React.Component{
                 <main>
                     <section>
                         <Button type="primary" onClick={this.showDrawer} className='selectedTagBtn'>
-                            查看当前已选类别
+                            查看当前已选标签
                         </Button>
                     </section>
 
                     <section className='types'>
-                        <Tag style={{ marginRight: 8 }} color="#87d068">全部分类</Tag>
+                        <Tag style={{ marginRight: 8 }} color="#87d068">全部标签</Tag>
                         {tagsFromServer.map(tag => (
                             <CheckableTag
                                 key={tag}
@@ -203,7 +204,7 @@ export default class AllType extends React.Component{
                     </section>
                 
                     <Drawer
-                        title="当前已选类别"
+                        title="当前已选标签"
                         placement="left"
                         closable={false}
                         onClose={this.closeDrawer}

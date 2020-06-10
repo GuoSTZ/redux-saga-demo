@@ -54,8 +54,8 @@ export default class UploadVideo extends React.Component{
             // Get this url from response in real world.
             getBase64(info.file.originFileObj, imageUrl =>
                 this.setState({
-                imageUrl,
-                loading: false,
+                    imageUrl,
+                    loading: false,
                 }),
             );
         }

@@ -24,7 +24,7 @@ const option = {
     },
 };
 
-export default class HomewordUpload extends React.Component{
+export default class HomeworkUpload extends React.Component{
 
 
     render(){

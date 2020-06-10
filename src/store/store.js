@@ -60,6 +60,34 @@ import {
     namespace as coursePageNamespace  
 } from '../pages/coursePage/index';
 
+// personalPage
+import { 
+    rootSaga as personalPageRootSaga, 
+    AllReducer as personalPageReducer, 
+    namespace as personalPageNamespace  
+} from '../pages/personalPage/index';
+
+// changeMessage
+import { 
+    rootSaga as changeMessageRootSaga, 
+    AllReducer as changeMessageReducer, 
+    namespace as changeMessageNamespace  
+} from '../pages/changeMessage/index';
+
+// browsingHistory
+import { 
+    rootSaga as browsingHistoryRootSaga, 
+    AllReducer as browsingHistoryReducer, 
+    namespace as browsingHistoryNamespace  
+} from '../pages/browsingHistory/index';
+
+// changePassword
+import { 
+    rootSaga as changePasswordRootSaga, 
+    AllReducer as changePasswordReducer, 
+    namespace as changePasswordNamespace  
+} from '../pages/changePassword/index';
+
 const sagaMiddleware = createSagaMiddleware() // 执行
 
 const reducers = Object.assign({}, {
@@ -71,6 +99,10 @@ const reducers = Object.assign({}, {
     [homePageNamespace]: homePageReducer,
     [allTypeNamespace]: allTypeReducer,
     [coursePageNamespace]: coursePageReducer,
+    [personalPageNamespace]: personalPageReducer,
+    [changeMessageNamespace]: changeMessageReducer,
+    [browsingHistoryNamespace]: browsingHistoryReducer,
+    [changePasswordNamespace]: changePasswordReducer,
 })
 
 const reducerAll = combineReducers({
@@ -91,3 +123,7 @@ sagaMiddleware.run(videoRootSaga)
 sagaMiddleware.run(homePageRootSaga)
 sagaMiddleware.run(allTypeRootSaga)
 sagaMiddleware.run(coursePageRootSaga)
+sagaMiddleware.run(personalPageRootSaga)
+sagaMiddleware.run(changeMessageRootSaga)
+sagaMiddleware.run(browsingHistoryRootSaga)
+sagaMiddleware.run(changePasswordRootSaga)

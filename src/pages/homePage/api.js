@@ -6,3 +6,21 @@ export function fetchData(params) {
       body: params
     });
 }
+
+export function fetchRedisLoginMessage(params) {
+  return fetchGet(`redis/fetchRedisLoginMessage`,{
+    body: params
+  })
+}
+
+export function fetchLoginMessage(params) {
+  return fetchGet(`user/fetchLoginMessage`,{
+    body: params
+  })
+}
+
+export function isKeyExist(params) {
+  return fetchGet(`redis/isKeyExist`,{
+    body: params
+  })
+}

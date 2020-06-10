@@ -1,6 +1,6 @@
 import { Model, fk, oneToOne, many, ORM, attr } from "redux-orm";
 
-export const namespace = ""
+export const namespace = "ChangePasswordSet"
 export class ChangePasswordSet extends Model {
     // static reducer(action, ChangePasswordSet, session) {
     //     let modelName = ChangePasswordSet.modelName

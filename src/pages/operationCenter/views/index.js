@@ -11,6 +11,7 @@ import UploadVideo from '../../uploadVideo/views/index'
 import Footer from '../../../components/footer/index'
 import DataCenter from '../../dataCenter/views/index'
 import CommentsManagement from '../../commentsManagement/views/index'
+import CourseRelease from '../../courseRelease/views/index'
 
 import './index.less'
 
@@ -149,11 +150,7 @@ export default class OperationCenter extends React.Component{
                             videoTypesData={videoTypesData}/>
 
             case PAGES.uploadTeachingVideo:
-                return <UploadVideo 
-                            uploadProps={uploadProps} 
-                            videoTagsData={videoTagsData} 
-                            videoTypesData={videoTypesData}
-                            isTeacher={false}/>
+                return <CourseRelease />
             
             case PAGES.dataCenter:
                 return <DataCenter />
@@ -185,7 +182,7 @@ export default class OperationCenter extends React.Component{
                             </Menu.Item>
                             <Menu.Item key="2">
                                 <DesktopOutlined />
-                                <span>教学视频上传</span>
+                                <span>课程发布</span>
                             </Menu.Item>
                             <Menu.Item key="3">
                                 <ContainerOutlined />

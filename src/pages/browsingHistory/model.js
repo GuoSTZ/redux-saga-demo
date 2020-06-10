@@ -1,6 +1,6 @@
 import { Model, fk, oneToOne, many, ORM, attr } from "redux-orm";
 
-export const namespace = ""
+export const namespace = "BrowsingHistorySet"
 export class BrowsingHistorySet extends Model {
     // static reducer(action, BrowsingHistorySet, session) {
     //     let modelName = BrowsingHistorySet.modelName

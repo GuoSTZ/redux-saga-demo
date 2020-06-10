@@ -6,8 +6,8 @@ import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
 export const sagas = Object.assign({}, {
-    purchase: function * (action) {
-        yield call(Api.purchase, action.payload)
+    test: function * (action) {
+        console.log(action)
     }
 })
 

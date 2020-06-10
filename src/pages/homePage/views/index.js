@@ -16,14 +16,25 @@ const { Link } = Anchor;
 // 轮播图图片资源
 const swiperImgUrl = [
     'http://guostz.gitee.io/graduationprojectresource/resource/images/homePage/1.jpg',
-    'http://guostz.gitee.io/graduationprojectresource/resource/images/homePage/1.jpg',
-    'http://guostz.gitee.io/graduationprojectresource/resource/images/homePage/1.jpg',
-    'http://guostz.gitee.io/graduationprojectresource/resource/images/homePage/1.jpg',
+    'http://guostz.gitee.io/graduationprojectresource/resource/images/homePage/2.jpg',
+    'http://guostz.gitee.io/graduationprojectresource/resource/images/homePage/3.jpg',
+    'http://guostz.gitee.io/graduationprojectresource/resource/images/homePage/5.jpg',
 ]
 
 export default class HomePage extends React.Component{
+    componentWillMount(){
+        const {actions} = this.props
+        actions.isKeyExist({account: sessionStorage.getItem('userAccount')})
+        
+    }
     componentDidMount(){
-
+        const {actions} = this.props
+        window.onbeforeunload = e => {
+            // actions.isKeyExist({account: sessionStorage.getItem('userAccount')})
+            console.log('test')
+        }
+    }
+    componentWillUnmount(){
     }
     render(){
         const data = [
@@ -33,91 +44,35 @@ export default class HomePage extends React.Component{
                 type: 'VIP',
                 courseData: [
                     {
-                        id: 100001,
+                        id: 1,
                         courseName: '三节棍教学视频三节棍教学视频三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100002,
+                        id: 2,
                         courseName: '三节棍教学视频',
                         username: '非常骄傲的小李老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100003,
+                        id: 3,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100004,
+                        id: 4,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100005,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100006,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100007,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100008,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100009,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000010,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000011,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000012,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000013,
+                        id: 5,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
@@ -131,91 +86,42 @@ export default class HomePage extends React.Component{
                 type: 'common',
                 courseData: [
                     {
-                        id: 100001,
+                        id: 1,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100002,
+                        id: 2,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100003,
+                        id: 3,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100004,
+                        id: 4,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100005,
+                        id: 5,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100006,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100007,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100008,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100009,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000010,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000011,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000012,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000013,
+                        id: 6,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
@@ -229,97 +135,26 @@ export default class HomePage extends React.Component{
                 type: 'basic',
                 courseData: [
                     {
-                        id: 100001,
+                        id: 1,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100002,
+                        id: 2,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100003,
+                        id: 3,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
-                    },
-                    {
-                        id: 100004,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100005,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100006,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100007,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100008,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100009,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000010,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000011,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000012,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000013,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    }
-                ]
+                    }]
             },
             {
                 id: 4,
@@ -327,97 +162,19 @@ export default class HomePage extends React.Component{
                 type: 'free',
                 courseData: [
                     {
-                        id: 100001,
+                        id: 1,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100002,
+                        id: 2,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
-                    },
-                    {
-                        id: 100003,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100004,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100005,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100006,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100007,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100008,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100009,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000010,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000011,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000012,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000013,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    }
-                ]
+                    }]
             },
             {
                 id: 5,
@@ -425,97 +182,40 @@ export default class HomePage extends React.Component{
                 type: 'live',
                 courseData: [
                     {
-                        id: 100001,
+                        id: 1,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100002,
+                        id: 2,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100003,
+                        id: 3,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100004,
+                        id: 4,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100005,
+                        id: 5,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
-                    },
-                    {
-                        id: 100006,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100007,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100008,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100009,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000010,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000011,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000012,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000013,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    }
-                ]
+                    }]
             },
             {
                 id: 6,
@@ -523,97 +223,47 @@ export default class HomePage extends React.Component{
                 type: 'video',
                 courseData: [
                     {
-                        id: 100001,
+                        id: 1,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100002,
+                        id: 2,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100003,
+                        id: 3,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100004,
+                        id: 4,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100005,
+                        id: 5,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100006,
+                        id: 6,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
-                    },
-                    {
-                        id: 100007,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100008,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100009,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000010,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000011,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000012,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000013,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    }
-                ]
+                    }]
             },
             {
                 id: 7,
@@ -621,103 +271,65 @@ export default class HomePage extends React.Component{
                 type: 'show',
                 courseData: [
                     {
-                        id: 100001,
+                        id: 1,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100002,
+                        id: 2,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100003,
+                        id: 3,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100004,
+                        id: 4,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100005,
+                        id: 5,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100006,
+                        id: 6,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
                     },
                     {
-                        id: 100007,
+                        id: 7,
                         courseName: '三节棍教学视频',
                         username: '小王老师',
                         coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
                         date: 1589617657251,
-                    },
-                    {
-                        id: 100008,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 100009,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000010,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000011,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000012,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    },
-                    {
-                        id: 1000013,
-                        courseName: '三节棍教学视频',
-                        username: '小王老师',
-                        coverUrl: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-                        date: 1589617657251,
-                    }
-                ]
+                    }]
             }
         ]
+        let user = null;
+        if(sessionStorage.getItem('user') !== null){
+            user = JSON.parse(sessionStorage.getItem('user'))
+        }
+        const {reducer: {loginMessage}} = this.props
         return(
             <div id='homePage'>
                 <Header 
-                    user={{src:''}}
+                    user={user || loginMessage}
                 />
                 <div className='swiper'>
                     <Carousel autoplay>
@@ -759,32 +371,32 @@ export default class HomePage extends React.Component{
                                         </div>
                                     }
                                     renderItem={item => (
-                                    <List.Item style={{marginTop: '40px'}}>
-                                        <Link to='/coursePage'>
-                                            <Card
-                                                hoverable
-                                                cover={
-                                                    <img
-                                                        src={item.coverUrl}
+                                        <List.Item style={{marginTop: '40px'}}>
+                                            <RouterLink to={`/coursePage?courseId=${item.id}`}>
+                                                <Card
+                                                    hoverable
+                                                    cover={
+                                                        <img
+                                                            src={item.coverUrl}
+                                                        />
+                                                    }
+                                                >
+                                                    <Meta 
+                                                        title={
+                                                            <Tooltip title={item.courseName}  placement="topLeft">
+                                                                <span>{item.courseName}</span>
+                                                            </Tooltip>
+                                                        } 
+                                                        description={
+                                                            <div>
+                                                                <div>{item.username}</div>
+                                                                <span style={{marginTop: '8px',float: 'right'}}>{moment(item.date).format("YYYY-MM-DD HH:mm")}</span>
+                                                            </div>
+                                                        } 
                                                     />
-                                                }
-                                            >
-                                                <Meta 
-                                                    title={
-                                                        <Tooltip title={item.courseName}  placement="topLeft">
-                                                            <span>{item.courseName}</span>
-                                                        </Tooltip>
-                                                    } 
-                                                    description={
-                                                        <div>
-                                                            <div>{item.username}</div>
-                                                            <span style={{marginTop: '8px',float: 'right'}}>{moment(item.date).format("YYYY-MM-DD HH:mm")}</span>
-                                                        </div>
-                                                    } 
-                                                />
-                                            </Card>
-                                        </Link>
-                                    </List.Item>
+                                                </Card>
+                                            </RouterLink>
+                                        </List.Item>
                                     )}
                                 />
                             ))

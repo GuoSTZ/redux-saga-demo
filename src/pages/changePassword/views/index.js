@@ -5,63 +5,76 @@ import { CheckCircleTwoTone } from '@ant-design/icons';
 import ChangePasswordStep from './steps/changePasswordStep'
 import CheckPhoneStep from './steps/checkPhoneStep'
 
+import { withRouter } from 'react-router-dom'
+
 import './index.less'
+import { actionTypes } from '../../../common/actionTypes';
 
 const { Step } = Steps;
 
-// class ChangePasswordDone extends React.Component{
-//     render(){
-//         return(
-//             <div id='changePasswordDone'>
-//                 <div className='icon'>
-//                     <CheckCircleTwoTone twoToneColor="#52c41a"style={{fontSize: 80}} />
-//                 </div>
-//                 <p>您的密码已经修改成功</p>
-//                 <p>即将跳转登录页面</p>
-//             </div>
-//         )
-//     }
-// }
-
-const steps = [
-    {
-      title: '手机验证',
-      content: <CheckPhoneStep />,
-    },
-    {
-      title: '密码修改',
-      content: <ChangePasswordStep />,
-    },
-    {
-      title: '修改完成',
-      content: <Result
-                    status="success"
-                    title="您的密码已经修改成功"
-                    subTitle="即将跳转登录页面"
-                />
-    },
-];
-
-export default class ChangePassword extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-          current: 0,
-        };
-    }
+class ChangePassword extends React.Component{
+    state = {
+        current: 0,
+    };
+    formRef = React.createRef();
     
+    componentDidMount(){
+    }
+
     next() {
         const current = this.state.current + 1;
         this.setState({ current });
+
     }
     
     prev() {
         const current = this.state.current - 1;
         this.setState({ current });
     }
-    
+
+    checkPhone = () => {
+        this.formRef.current.validateFields().then(values => {
+            this.next()
+        })
+        .catch(errorInfo => {
+            message.error('请确保手机验证信息填写完整')
+        })
+    }
+
+    changePassword = () => {
+        const { actions, history } = this.props
+        this.formRef.current.validateFields().then(values => {
+            actions.fetchPassword(Object.assign({},values,{id: this.props.user.id}))
+            this.next()
+            setTimeout(()=>{
+                history.push('/')
+            },1000)
+        })
+        .catch(errorInfo => {
+            message.error('请确保密码信息填写完成')
+        })
+    }
+
     render() {
         const { current } = this.state;
+        const steps = [
+            {
+              title: '手机验证',
+              content: <CheckPhoneStep phoneRef={this.formRef}/>,
+            },
+            {
+              title: '密码修改',
+              content: <ChangePasswordStep  passwordRef={this.formRef}/>,
+            },
+            {
+              title: '修改完成',
+              content: <Result
+                            status="success"
+                            title="您的密码已经修改成功"
+                            subTitle="即将跳转登录页面"
+                        />
+            },
+        ];
         return (
             <div id='changePassword'>
                 <Steps current={current}>
@@ -73,18 +86,18 @@ export default class ChangePassword extends React.Component{
                     {steps[current].content}
                 </div>
                 <div className="steps-action">
-                    {current > 0 && (
+                    {current === 1 && (
                         <Button style={{ margin: 8 }} onClick={() => this.prev()}>
                             上一步
                         </Button>
                     )}
-                    {current < steps.length - 1 && (
-                        <Button type="primary" onClick={() => this.next()}>
+                    {current === 0 && (
+                        <Button type="primary" onClick={this.checkPhone}>
                             下一步
                         </Button>
                     )}
-                    {current === steps.length - 1 && (
-                    <Button type="primary" onClick={() => message.success('设置完成!')}>
+                    {current === 1 && (
+                    <Button type="primary" onClick={this.changePassword}>
                         完成
                     </Button>
                     )}
@@ -93,3 +106,5 @@ export default class ChangePassword extends React.Component{
         );
     }
 }
+
+export default withRouter(ChangePassword)

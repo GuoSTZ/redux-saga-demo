@@ -3,16 +3,22 @@ import { createDefineActions } from '../../actions/index'
 import { namespace } from './model'
 
 export const reduces = Object.assign(defaultReducer(), {
-    test: (state, action) => {
-        console.log(state)
+    updateLoginMessage: (state, action) => {
         console.log(action)
+        return {
+            ...state,
+            loginMessage: action.payload
+        }
     }
 })
 
 export const reducerActions = createDefineActions(reduces, namespace)
 
 export const initialState = Object.assign({}, defaultState, {
-    
+    loginMessage: {
+        name: '',
+        avatarUrl: ''
+    }
 })
 
 export default reducerCreator(megerActionReducer(reduces, reducerActions), initialState)

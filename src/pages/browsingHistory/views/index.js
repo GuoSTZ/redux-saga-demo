@@ -1,66 +1,43 @@
 import React from 'react'
-import { Timeline } from 'antd'
-
+import { Timeline, Empty } from 'antd'
+import { Link } from 'react-router-dom';
+import moment from 'moment'
 import './index.less'
 
 export default class BrowsingHistory extends React.Component{
     componentDidMount(){
-        // console.log( this )
+        const {actions} = this.props
+        actions.fetchHistory({userId: JSON.parse(sessionStorage.getItem('user')).id})
+        console.log(moment(3600000).utcOffset(0).format('HH:mm:ss'))
     }
 
-    renderTimeLine = () => {
-        // const { reducer: { timeLineItems } } = this.props 
-        const timeLineItems = [
-            {
-                browsingTime: '2015-09-01 09:50',
-                courseImgSrc: 'http://guostz.gitee.io/graduationprojectresource/resource/images/browsingHistory/群星.jpg',
-                courseName: '视频的名称',
-                courseMaker: '视频作者',
-                process: '视频已看进度',
-                type: '视频类别'
-            },
-            {
-                browsingTime: '2015-09-01 09:49',
-                courseImgSrc: 'http://guostz.gitee.io/graduationprojectresource/resource/images/browsingHistory/群星.jpg',
-                courseName: '视频的名称',
-                courseMaker: '视频作者',
-                process: '视频已看进度',
-                type: '视频类别'
-            },
-            {
-                browsingTime: '2015-09-01 09:49',
-                courseImgSrc: 'http://guostz.gitee.io/graduationprojectresource/resource/images/browsingHistory/群星.jpg',
-                courseName: '视频的名称',
-                courseMaker: '视频作者',
-                process: '视频已看进度',
-                type: '视频类别'
-            },
-            {
-                browsingTime: '2015-09-01 09:18',
-                courseImgSrc: 'http://guostz.gitee.io/graduationprojectresource/resource/images/browsingHistory/群星.jpg',
-                courseName: '视频的名称',
-                courseMaker: '视频作者',
-                process: '视频已看进度',
-                type: '视频类别'
-            },
-        ]
+    renderTimeLine = (timeLineItems) => {
         return timeLineItems.map( (item, index) => (
-                <Timeline.Item label="2015-09-01 09:50" key={index}>
-                    <div className='container'>
+                <Timeline.Item label={moment(item.browsingTime).format('YYYY-MM-DD HH:MM')} key={index}>
+                    <section className='container'>
                         <a>
-                            <img src={item.courseImgSrc} width={160} height={90} />
+                            <img src={item.videoCoverUrl} width={160} height={90} />
                         </a>
-                        <div>
-                            <div>
-                                <p>{item.courseName}</p>
-                                <p>{item.courseMaker}</p>
-                            </div>
-                            <div>
-                                <p>{item.process}</p>
-                                <p>{item.type}</p>
-                            </div>
-                        </div>
-                    </div>
+                        <section>
+                            <section>
+                                <span>{item.videoName}</span>
+                                <span>{item.userName}</span>
+                            </section>
+                            <section>
+                                <section className='process'>
+                                    <span>已看</span>
+                                    <span  style={{marginLeft: 10}}>
+                                        {
+                                            item.process > 3600000 ? 
+                                            moment(item.process).utcOffset(0).format('HH:mm:ss') :
+                                            moment(item.process).utcOffset(0).format('mm:ss')
+                                        }
+                                    </span>
+                                </section>
+                                {/* <p>{item.type}</p> */}
+                            </section>
+                        </section>
+                    </section>
                 </Timeline.Item>
             )
         )
@@ -71,15 +48,34 @@ export default class BrowsingHistory extends React.Component{
 
     
     render(){
+        const { reducer: { timeLineItems } } = this.props
         return(
-            <div id='browsingHistory'>
-                <div className='title'>
+            <section id='browsingHistory'>
+                <section className='title'>
                     时间记录
-                </div>
-                <Timeline mode='left' className='timeLine'>
-                    {this.renderTimeLine()}
-                </Timeline>
-            </div>
+                </section>
+                {
+                    timeLineItems.length !== 0 ? (
+                        <Timeline mode='left' className='timeLine'>
+                            {this.renderTimeLine(timeLineItems)}
+                        </Timeline>
+                    ) : (
+                        <Empty
+                            image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                            imageStyle={{
+                            height: 60,
+                            }}
+                            description={
+                                <span>
+                                    当前无浏览历史，<Link to='/homePage'>前往首页查看课程</Link>
+                                </span>
+                            }
+                      >
+                      </Empty>
+                    )
+                }
+                
+            </section>
         )
     }
 }

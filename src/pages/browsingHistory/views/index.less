@@ -32,15 +32,36 @@
                 border-radius: 8px;
                 overflow: hidden;
             }
-            >div{
+            >section{
                 width: 80%;
                 height: 90px;
                 margin-left: 10px;
                 border-bottom: 1px solid #d3d1d1;
                 padding: 4px 0;
-                >div{
+                >section{
                     display: inline-block;
-                    margin-right: 10px;
+                    >span{
+                        display: block;
+                    }
+                }
+                >section:nth-child(1){
+                    width: 30%;
+                    height: 100%;
+                    vertical-align: top;
+                    >span:nth-child(2){
+                        margin-top: 30px;
+                    }
+                }
+                >section:nth-child(2){
+                    position: relative;
+                    width: 70%;
+                    height: 100%;
+                    .process{
+                        position: absolute;
+                        width: 100px;
+                        right: 0;
+                        bottom: 0;
+                    }
                 }
             }
         }

@@ -34,7 +34,7 @@ export default class CommentManagement extends React.Component{
                 trigger: 'axis'
             },
             legend: {
-                data: ['邮件营销', '联盟广告', '视频广告']
+                data: ['视频1', '视频2', '视频3']
             },
             grid: {
                 left: '3%',
@@ -57,19 +57,19 @@ export default class CommentManagement extends React.Component{
             },
             series: [
                 {
-                    name: '邮件营销',
+                    name: '视频1',
                     type: 'line',
                     stack: '总量',
                     data: [120, 132, 101, 134, 90, 230, 210]
                 },
                 {
-                    name: '联盟广告',
+                    name: '视频2',
                     type: 'line',
                     stack: '总量',
                     data: [220, 182, 191, 234, 290, 330, 310]
                 },
                 {
-                    name: '视频广告',
+                    name: '视频3',
                     type: 'line',
                     stack: '总量',
                     data: [150, 232, 201, 154, 190, 330, 410]

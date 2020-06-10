@@ -6,10 +6,21 @@ import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
 export const sagas = Object.assign({}, {
+    fetchVideoMessage: function * (action){
+        let data = yield call(Api.fetchVideoMessage, action.payload);
+        yield put(reducerActions.updateVideoMessage(data))
+    },
     fetchComments: function * (action) {
         let data = yield call(Api.fetchComments, action.payload);
         yield put(reducerActions.updateComments(data))
-    }
+    },
+    saveHistory: function * (action) {
+        let data = yield call(Api.saveHistoryByQuery, action.payload);
+    },
+    saveComment: function * (action) {
+        let data = yield call(Api.saveComment, action.payload);
+        yield put(reducerActions.updateComments(data))
+    },
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)

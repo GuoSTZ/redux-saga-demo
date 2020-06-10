@@ -5,6 +5,7 @@ import { takeSagas } from "../../sagas/index"
 import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
+
 export const sagas = Object.assign({}, {
     fetchCheckCode: function * (action){
         let data = action.payload
@@ -13,39 +14,35 @@ export const sagas = Object.assign({}, {
     fetchData: function * () {
         yield call(Api.fetchData);
     },
+    // 用户登录
     login: function * (action) {
         let props = action.payload.props
         let payload = {
             account: action.payload.account,
             password: action.payload.password
         }
-        let data = yield call(Api.login, payload);
-        console.log(data)
-        yield put(reducerActions.updateLoginStatus(data))
-        if(data === true){
-            props.history.push('/homePage')
+        let data = yield call(Api.isKeyExist, payload)
+        if(data === true){ // 如果用户信息已经被缓存
+            let redisData = yield call(Api.redisLogin, payload)
+            // 如果验证通过
+            if(redisData === true){
+                sessionStorage.setItem('userAccount', action.payload.account)
+                props.history.push('/homePage')
+            }
+            yield put(reducerActions.updateLoginStatus(redisData))
+        } else {
+            let result = yield call(Api.login, payload);
+            yield put(reducerActions.updateLoginStatus(result))
+            if(result === true){
+                yield call(Api.saveLoginMessage, payload); // 用户信息缓存操作
+                sessionStorage.setItem('userAccount', action.payload.account)
+                props.history.push('/homePage')
+            }
+            
         }
     },
-    // 存储登录信息
-    saveLoginMessage: function * (action){
-        let payload = {
-            id: action.payload.id,
-            account: action.payload.account,
-            password: action.payload.password,
-            rememberPassword: action.payload.rememberPassword, // 是否记住密码
-            time: action.payload.time // 信息失效时间
-        }
-        let data = yield call(Api.saveLoginMessage, payload);
-        if(data !== undefined){
-            yield put(reducerActions.updateLoginMessage(data))
-        }
-    },
-    // 获取登录信息 
-    fetchLoginMessage: function * (action){
-        let data = yield call(Api.fetchLoginMessage, action.payload);
-        if(data !== undefined){
-            yield put(reducerActions.updateLoginMessage(data))
-        }
+    changeLoginStatus: function * (action){
+        yield put(reducerActions.updateLoginStatus(true))
     }
 })
 

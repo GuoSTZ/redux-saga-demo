@@ -6,9 +6,3 @@ export function fetchData(params) {
       body: params
     });
 }
-
-export function purchase(params) {
-  fetchGet(`alipay/alipay`, {
-    body: params
-  });
-}

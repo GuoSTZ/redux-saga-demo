@@ -13,23 +13,33 @@ const tailLayout = {
 
 
 export default class CheckPhoneStep extends React.Component{
-
     render(){
         return (
             <div id='checkPhoneStep'>
                 <Form
-                    // {...layout}
-                    name="basic"
+                    name="checkPhone"
                     initialValues={{ remember: true }}
-                    onFinish={this.onFinish}
-                    onFinishFailed={this.onFinishFailed}
+                    ref={this.props.phoneRef}
                 >
+
+                    <Form.Item
+                        label="ID"
+                        name="id"
+                        hidden
+                    >
+                        <Input/>
+                    </Form.Item>
+
                     <Form.Item
                         label="手机号"
                         name="phone"
                         labelCol={{span: 8}}
                         wrapperCol={{span: 12}}
-                        rules={[{ required: true, message: '请输入手机号!' }]}
+                        rules={[
+                            { required: true, message: '请输入手机号!' },
+                            { min: 11, message: '请输入正确的手机号码'},
+                            { max: 11, message: '请输入正确的手机号码'}
+                        ]}
                     >
                         <Input placeholder="请输入手机号" />
                     </Form.Item>
@@ -38,7 +48,7 @@ export default class CheckPhoneStep extends React.Component{
                         <Col span={16}>
                             <Form.Item
                                 label="验证码"
-                                name="checkCode"
+                                name="checkCodeInput"
                                 labelCol={{span: 12}}
                                 wrapperCol={{span: 12}}
                                 rules={[{ required: true, message: '请输入验证码!' }]}

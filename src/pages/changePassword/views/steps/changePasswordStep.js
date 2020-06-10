@@ -13,34 +13,22 @@ const tailLayout = {
 
 export default class ChangePasswordStep extends React.Component{
     componentDidMount(){
-        // console.log( this )
     }
-    onFinish = values => {
-        console.log('Success:', values);
-      };
-    
-    onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo);
-    };
-    sexChange = e => {
-        console.log('radio checked', e.target.value);
-    };
     render(){
         return(
             <div id='changePasswordStep'>
                 <Form
                     {...layout}
-                    name="basic"
+                    name="changPassword"
                     initialValues={{ remember: true }}
-                    onFinish={this.onFinish}
-                    onFinishFailed={this.onFinishFailed}
+                    ref={this.props.passwordRef}
                 >
                     <Form.Item
                         label="ID"
                         name="id"
                         hidden
                     >
-                        <Input/>
+                        <Input />
                     </Form.Item>
 
                     <Form.Item
@@ -48,7 +36,7 @@ export default class ChangePasswordStep extends React.Component{
                         name="oldPassword"
                         rules={[{ required: true, message: '请输入原密码!' }]}
                     >
-                        <Input placeholder="请输入原密码" />
+                        <Input placeholder="请输入原密码" type='password' />
                     </Form.Item>
 
                     <Form.Item
@@ -56,22 +44,27 @@ export default class ChangePasswordStep extends React.Component{
                         name="newPassword"
                         rules={[{ required: true, message: '请输入新密码!' }]}
                     >
-                        <Input placeholder="请输入新密码"/>
+                        <Input placeholder="请输入新密码" type='password' />
                     </Form.Item>
 
                     <Form.Item
                         label="确认新密码"
                         name="reNewPassword"
-                        rules={[{ required: true, message: '请再次输入新密码!' }]}
+                        rules={[
+                            { required: true, message: '请再次输入新密码!' },
+                            ({ getFieldValue }) => ({
+                                validator(rule, value) {
+                                    if (!value || getFieldValue('newPassword') === value) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject('请确认两次输入密码相同');
+                                },
+                            }),
+                        ]}
                     >
-                        <Input placeholder="请再次输入新密码"/>
+                        <Input placeholder="请再次输入新密码" type='password' />
                     </Form.Item>
 
-                    {/* <Form.Item {...tailLayout}>
-                        <Button type="primary" htmlType="submit" style={{width: 160}}>
-                            提交
-                        </Button>
-                    </Form.Item> */}
                 </Form>
             </div>
         )
