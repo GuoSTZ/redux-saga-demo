@@ -43,7 +43,7 @@ export const sagas = Object.assign({}, {
     },
     changeLoginStatus: function * (action){
         yield put(reducerActions.updateLoginStatus(true))
-    }
+    },
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)

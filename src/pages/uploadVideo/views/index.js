@@ -68,13 +68,33 @@ export default class UploadVideo extends React.Component{
         console.log('onOk: ', value);
     }
     render(){
+        let user = null;
+        if(sessionStorage.getItem('user') !== null){
+            user = JSON.parse(sessionStorage.getItem('user'))
+        }
         const uploadButton = (
             <div>
                 {this.state.loading ? <LoadingOutlined /> : <PlusOutlined />}
                 <div className="ant-upload-text">选择封面</div>
             </div>
         );
+        const uploadProps = {
+            action: `video/uploadVideo?userId=${user.id}`,
+            listType: 'picture',
+            name: 'video',
+            previewFile(file) {
+              console.log('你上传的文件是:', file);
+              return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
+                method: 'POST',
+                body: file,
+              })
+                .then(res => res.json())
+                .then(({ thumbnail }) => thumbnail);
+            },
+        }
+
         const { imageUrl } = this.state;
+
         return(
             <div id='uploadVideo'>
                 <Form
@@ -88,7 +108,7 @@ export default class UploadVideo extends React.Component{
                         name="chooseVideo"
                         rules={[{ required: true, message: '请上传视频!' }]}
                     >
-                        <Upload {...this.props.uploadProps}>
+                        <Upload {...uploadProps}>
                             <Button>
                                 <UploadOutlined /> 选择视频
                             </Button>
@@ -101,11 +121,11 @@ export default class UploadVideo extends React.Component{
                         rules={[{ required: true, message: '请设置视频封面!' }]}
                     >
                         <Upload
-                            name="videoImg"
+                            name="videoCover"
                             listType="picture-card"
                             className="videoImg-uploader"
                             showUploadList={false}
-                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            action={`video/uploadVideoCoverUrl?userId=${user.id}`}
                             beforeUpload={beforeUpload}
                             onChange={this.handleChange}
                         >
@@ -123,13 +143,13 @@ export default class UploadVideo extends React.Component{
 
                     {this.props.isTeacher === false ? (
                         <Form.Item
-                            label="视频分类"
+                            label="视频标签"
                             name="videoTypes"
-                            rules={[{ required: true, message: '请选择视频标分类!' }]}
+                            rules={[{ required: true, message: '请选择视频标签!' }]}
                         >
                             <Select
                                 style={{ width: '100%' }}
-                                placeholder="请选择视频类别"
+                                placeholder="请选择视频标签"
                                 showSearch
                                 optionFilterProp="children"
                                 // onChange={onChange}

@@ -88,6 +88,13 @@ import {
     namespace as changePasswordNamespace  
 } from '../pages/changePassword/index';
 
+// courseRelease
+import { 
+    rootSaga as courseReleaseRootSaga, 
+    AllReducer as courseReleaseReducer, 
+    namespace as courseReleaseNamespace  
+} from '../pages/courseRelease/index';
+
 const sagaMiddleware = createSagaMiddleware() // 执行
 
 const reducers = Object.assign({}, {
@@ -103,6 +110,7 @@ const reducers = Object.assign({}, {
     [changeMessageNamespace]: changeMessageReducer,
     [browsingHistoryNamespace]: browsingHistoryReducer,
     [changePasswordNamespace]: changePasswordReducer,
+    [courseReleaseNamespace]: courseReleaseReducer,
 })
 
 const reducerAll = combineReducers({
@@ -127,3 +135,4 @@ sagaMiddleware.run(personalPageRootSaga)
 sagaMiddleware.run(changeMessageRootSaga)
 sagaMiddleware.run(browsingHistoryRootSaga)
 sagaMiddleware.run(changePasswordRootSaga)
+sagaMiddleware.run(courseReleaseRootSaga)

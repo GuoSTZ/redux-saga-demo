@@ -27,16 +27,20 @@ export default class DataCenter extends React.Component{
     onChange = checked => {
         this.setState({ loading: !checked });
     };
-    renderCardDesc(){
+    renderCardDesc(user){
         return(
             <Descriptions>
-                <Descriptions.Item label="UID">130009660</Descriptions.Item>
-                <Descriptions.Item label="注册时间">2020-4-30</Descriptions.Item>
+                <Descriptions.Item label="ID">{user.id}</Descriptions.Item>
+                <Descriptions.Item label="注册时间">{user.registerTime}</Descriptions.Item>
                 <Descriptions.Item><Link to="/personalCenter/">前往个人中心<RightOutlined /></Link></Descriptions.Item>
             </Descriptions>
         )
     }
     render(){
+        let user = null
+        if(sessionStorage.getItem('user') !== null){
+            user = JSON.parse(sessionStorage.getItem('user'))
+        }
         const item = {
             courseName: '三节棍教学视频',
             teacher: '小王老师'
@@ -309,7 +313,7 @@ export default class DataCenter extends React.Component{
                                     <Avatar src="http://guostz.gitee.io/graduationprojectresource/resource/images/browsingHistory/群星.jpg" />
                                 }
                                 title='倾遇'
-                                description={this.renderCardDesc()}
+                                description={this.renderCardDesc(user)}
                             />
                         </Skeleton>
                     </Card>

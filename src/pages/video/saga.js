@@ -21,6 +21,11 @@ export const sagas = Object.assign({}, {
         let data = yield call(Api.saveComment, action.payload);
         yield put(reducerActions.updateComments(data))
     },
+    saveReply: function * (action) {
+        let data = yield call(Api.saveReply, action.payload);
+        console.log(data, 'data')
+        yield put(reducerActions.updateComments(data))
+    },
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)

@@ -25,7 +25,6 @@ const { TextArea } = Input;
 
 export default class VideoPage extends React.Component{
     formRef = React.createRef()
-
     componentDidMount(){
         const { actions, history } = this.props
         actions.fetchVideoMessage({id: parseInt(sessionStorage.getItem('videoId'))});
@@ -35,12 +34,6 @@ export default class VideoPage extends React.Component{
         
     }
 
-    renderChildComment(array){
-        return array.map(item=>(
-            <CourseComment commentOption={item} key={item.id}>
-            </CourseComment>
-        ))
-    }
     editorOnchange = () => {
         console.log('editorOnchange')
     }
@@ -65,6 +58,26 @@ export default class VideoPage extends React.Component{
             videoId: parseInt(sessionStorage.getItem('videoId'))
         }))
         this.formRef.current.resetFields()
+    }
+    replySubmit = values => {
+        const { actions } = this.props
+        let reply = Object.assign({}, values, {
+            date: moment().format('x'),
+            toUserId: values.toUserId,
+            userId: JSON.parse(sessionStorage.getItem('user')).id
+        })
+        actions.saveReply(reply)
+    }
+    renderChildComment(array, commentId){
+        return array.map(item=>(
+            <CourseComment 
+                commentOption={item} 
+                key={item.id} 
+                commentId={commentId} 
+                toUserId={item.userId} 
+                replySubmit={this.replySubmit.bind(this)}>
+            </CourseComment>
+        ))
     }
     render(){
         const { reducer: { comments, videoMessage } } = this.props
@@ -212,9 +225,10 @@ export default class VideoPage extends React.Component{
                                 </section>
                                 {
                                     comments !== undefined ? comments.map((item, index) => (
-                                        <CourseComment commentOption={item} key={index}>
+                                        <CourseComment commentOption={item} key={index} commentId={item.commentId} toUserId={item.userId} replySubmit={this.replySubmit.bind(this)}>
                                             {
-                                                item.userReplyList !== undefined ?  this.renderChildComment(item.userReplyList) : null
+                                                item.userReplyList !== undefined ? 
+                                                    this.renderChildComment(item.userReplyList, item.commentId) : null
                                             }
                                         </CourseComment>
                                     )) : (

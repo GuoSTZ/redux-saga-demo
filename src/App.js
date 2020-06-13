@@ -10,6 +10,7 @@ import { HomePageContainer } from './pages/homePage/container'
 import { AllTypeContainer } from './pages/allType/container'
 import { CoursePageContainer } from './pages/coursePage/container'
 import { PersonalPageContainer } from './pages/personalPage/container'
+import { PoseEstimationContainer } from './pages/poseEstimation/container'
 
 
 import DataStatistics from './pages/works/dataStatistics/views/index'
@@ -30,6 +31,7 @@ const App = () => (
         <Route exact path="/allType" component={AllTypeContainer} />
         <Route exact path="/coursePage" component={CoursePageContainer} />
         <Route exact path="/personalPage" component={PersonalPageContainer} />
+        <Route exact path="/poseEstimation" component={PoseEstimationContainer} />
       </div>
 		</Router>
   </div>

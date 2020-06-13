@@ -12,3 +12,21 @@ export function purchase(params) {
     body: params
   });
 }
+
+export function fetchCourseMessage(params){
+  return fetchGet(`course/getCourseById`, {
+    body: params
+  });
+}
+
+export function fetchCourseStatus(params){
+  return fetchPost(`myCourse/getCourseStatus`, {
+    body: params
+  });
+}
+
+export function test(params) {
+  fetchGet(`course/test`, {
+    body: params
+  });
+}

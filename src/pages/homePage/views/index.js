@@ -37,6 +37,11 @@ export default class HomePage extends React.Component{
     componentWillUnmount(){
     }
     render(){
+        let user = null;
+        if(sessionStorage.getItem('user') !== null){
+            user = JSON.parse(sessionStorage.getItem('user'))
+        }
+        const {reducer: {loginMessage}} = this.props
         const data = [
             {
                 id: 1,
@@ -321,11 +326,6 @@ export default class HomePage extends React.Component{
                     }]
             }
         ]
-        let user = null;
-        if(sessionStorage.getItem('user') !== null){
-            user = JSON.parse(sessionStorage.getItem('user'))
-        }
-        const {reducer: {loginMessage}} = this.props
         return(
             <div id='homePage'>
                 <Header 
@@ -372,7 +372,7 @@ export default class HomePage extends React.Component{
                                     }
                                     renderItem={item => (
                                         <List.Item style={{marginTop: '40px'}}>
-                                            <RouterLink to={`/coursePage?courseId=${item.id}`}>
+                                            <RouterLink to={`/coursePage`} onClick={()=>sessionStorage.setItem('courseId', item.id)}>
                                                 <Card
                                                     hoverable
                                                     cover={

@@ -11,7 +11,7 @@ import UploadVideo from '../../uploadVideo/views/index'
 import Footer from '../../../components/footer/index'
 import DataCenter from '../../dataCenter/views/index'
 import CommentsManagement from '../../commentsManagement/views/index'
-import CourseRelease from '../../courseRelease/views/index'
+import { CourseReleaseContainer } from '../../courseRelease/container'
 
 import './index.less'
 
@@ -35,7 +35,7 @@ function beforeUpload(file) {
 // 页面常量设置
 const PAGES = {
     uploadPersonalVideo: '1',
-    uploadTeachingVideo: '2',
+    courseRelease: '2',
     dataCenter: '3',
     commentsManagement: '4'
 }
@@ -72,20 +72,6 @@ export default class OperationCenter extends React.Component{
     }
     renderPage = () => {
         const {reducer: { page }} = this.props
-        const uploadProps = {
-            action: '//jsonplaceholder.typicode.com/posts/',
-            listType: 'picture',
-            previewFile(file) {
-              console.log('你上传的文件是:', file);
-              // Your process logic. Here we just mock to the same file
-              return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
-                method: 'POST',
-                body: file,
-              })
-                .then(res => res.json())
-                .then(({ thumbnail }) => thumbnail);
-            },
-        }
         const videoTagsData = [
             {
                 value: '标签1',
@@ -145,12 +131,11 @@ export default class OperationCenter extends React.Component{
         switch(page){
             case PAGES.uploadPersonalVideo:
                 return <UploadVideo 
-                            uploadProps={uploadProps} 
                             videoTagsData={videoTagsData} 
                             videoTypesData={videoTypesData}/>
 
-            case PAGES.uploadTeachingVideo:
-                return <CourseRelease />
+            case PAGES.courseRelease:
+                return <CourseReleaseContainer />
             
             case PAGES.dataCenter:
                 return <DataCenter />
@@ -161,10 +146,14 @@ export default class OperationCenter extends React.Component{
     }
     render(){
         const {reducer: { page }} = this.props
+        let user = null;
+        if(sessionStorage.getItem('user') !== null){
+            user = JSON.parse(sessionStorage.getItem('user'))
+        }
         return(
             <div id='videoUpload'>
                 <Header 
-                    user={{src:''}}
+                    user={user}
                 />
                 <main>
                     <nav>

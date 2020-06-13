@@ -37,3 +37,9 @@ export function saveComment(params) {
     body: params
   });
 }
+
+export function saveReply(params) {
+  return fetchPost(`replyComment/replySubmit`, {
+    body: params
+  });
+}

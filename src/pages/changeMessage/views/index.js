@@ -145,7 +145,8 @@ export default class ChangeMessage extends React.Component{
                             listType="picture-card"
                             className="avatar-uploader"
                             showUploadList={false}
-                            action={`user/updateAvatarUrl?userId=${formData.id}`}
+                            data={{userId: formData.id}}
+                            action={`user/updateAvatarUrl`}
                             beforeUpload={beforeUpload}
                             onChange={this.handleChange.bind(this)}
                         >

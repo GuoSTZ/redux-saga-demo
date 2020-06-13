@@ -10,8 +10,6 @@ export default class LoginPage extends React.Component{
     formRef = React.createRef();
     componentDidMount(){
         const { actions } = this.props
-        console.log(sessionStorage,'****')
-
         actions.fetchCheckCode(this.createCode(4))
     }
     onFinish = values => {
