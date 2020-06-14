@@ -1,6 +1,6 @@
 import { Model, fk, oneToOne, many, ORM, attr } from "redux-orm";
 
-export const namespace = ""
+export const namespace = "MyCourseSet"
 export class MyCourseSet extends Model {
     // static reducer(action, MyCourseSet, session) {
     //     let modelName = MyCourseSet.modelName

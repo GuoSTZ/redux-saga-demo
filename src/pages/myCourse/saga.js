@@ -6,7 +6,10 @@ import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
 export const sagas = Object.assign({}, {
-    // ...
+    fetchMyCourseMessage: function * (action) {
+        let data = yield call(Api.fetchMyCourseMessage, action.payload)
+        yield put(reducerActions.updateMyCourseMessage(data))
+    }
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)

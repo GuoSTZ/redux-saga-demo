@@ -6,3 +6,15 @@ export function fetchData(params) {
       body: params
     });
 }
+
+export function videoSubmit(params) {
+  return fetchPost(`video/videoSubmit`, {
+    body: params
+  });
+}
+
+export function videoTagSubmit(params) {
+  return fetchGet(`videoTag/videoTagSubmit`, {
+    body: params
+  });
+}

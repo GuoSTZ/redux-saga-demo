@@ -3,7 +3,12 @@ import { createDefineActions } from '../../actions/index'
 import { namespace } from './model'
 
 export const reduces = Object.assign(defaultReducer(), {
-    // ...
+    test: (state, action) => {
+        return {
+            ...state,
+            
+        }
+    }
 })
 
 export const reducerActions = createDefineActions(reduces, namespace)

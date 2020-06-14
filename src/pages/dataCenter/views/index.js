@@ -14,6 +14,7 @@ import {
     AndroidOutlined,
     CaretRightOutlined 
 } from '@ant-design/icons';
+import moment from 'moment';
 
 const { Panel } = Collapse;
 const { Meta } = Card;
@@ -31,7 +32,7 @@ export default class DataCenter extends React.Component{
         return(
             <Descriptions>
                 <Descriptions.Item label="ID">{user.id}</Descriptions.Item>
-                <Descriptions.Item label="注册时间">{user.registerTime}</Descriptions.Item>
+                <Descriptions.Item label="注册时间">{moment(user.registerTime).format("YYYY-MM-DD")}</Descriptions.Item>
                 <Descriptions.Item><Link to="/personalCenter/">前往个人中心<RightOutlined /></Link></Descriptions.Item>
             </Descriptions>
         )
@@ -310,9 +311,9 @@ export default class DataCenter extends React.Component{
                         <Skeleton loading={this.state.loading} avatar active>
                             <Meta
                                 avatar={
-                                    <Avatar src="http://guostz.gitee.io/graduationprojectresource/resource/images/browsingHistory/群星.jpg" />
+                                    <Avatar src={user.avatarUrl} />
                                 }
-                                title='倾遇'
+                                title={user.name}
                                 description={this.renderCardDesc(user)}
                             />
                         </Skeleton>

@@ -6,7 +6,9 @@ import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
 export const sagas = Object.assign({}, {
-    // ...
+    test: function * (action) {
+        console.log(action)
+    }
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)

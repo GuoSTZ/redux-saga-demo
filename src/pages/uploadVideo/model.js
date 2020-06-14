@@ -1,28 +1,28 @@
 import { Model, fk, oneToOne, many, ORM, attr } from "redux-orm";
 
-export const namespace = "TemplateSet"
-export class TemplateSet extends Model {
-    // static reducer(action, TemplateSet, session) {
-    //     let modelName = TemplateSet.modelName
+export const namespace = "UploadVideoSet"
+export class UploadVideoSet extends Model {
+    // static reducer(action, UploadVideoSet, session) {
+    //     let modelName = UploadVideoSet.modelName
     //     switch (action.type) {
     //         case `${modelName}_ADD`:
-    //             TemplateSet.create(action.payload)
+    //             UploadVideoSet.create(action.payload)
     //             break
     //         case `${modelName}_DELETE`:
-    //             TemplateSet.withId(action.payload).delete()
+    //             UploadVideoSet.withId(action.payload).delete()
     //             break
     //         case `${modelName}_UPDATE`:
-    //             TemplateSet.withId(action.payload.id).update(action.payload)
+    //             UploadVideoSet.withId(action.payload.id).update(action.payload)
     //             break
     //     }
     // }
 }
-TemplateSet.modelName = namespace;
-TemplateSet.fields = {
+UploadVideoSet.modelName = namespace;
+UploadVideoSet.fields = {
     // ...
 }
 
 const orm = new ORM;
-orm.register(TemplateSet);
+orm.register(UploadVideoSet);
 
 export { orm }

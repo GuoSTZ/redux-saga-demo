@@ -6,6 +6,7 @@ import {
     PlusOutlined
 } from '@ant-design/icons';
 import './index.less'
+import moment from 'moment';
 
 const layout = {
     labelCol: { span: 6 },
@@ -35,12 +36,34 @@ function beforeUpload(file) {
     return isJpgOrPng && isLt2M;
 }
 
+let user = null;
+if(sessionStorage.getItem('user') !== null){
+    user = JSON.parse(sessionStorage.getItem('user'))
+}
+
 export default class UploadVideo extends React.Component{
     state = {
         loading: false,
+        createTime: moment().format('x'),
+        videoId: 0,  // 初始化为0，表示该videoId为错误的
     };
+    componentDidMount(){
+    }
     onFinish = values => {
+        const {actions} = this.props
         console.log('Success:', values);
+        actions.videoSubmit(Object.assign({}, values, {
+            id: this.state.videoId,
+            videoUrl: this.state.videoUrl,
+            coverUrl: this.state.coverUrl,
+            userId: user.id,
+            date: moment().format('x'),
+        }));
+        actions.videoTagSubmit({
+            tagList: values.videoTags.join("-"),
+            videoId: this.state.videoId,
+        })
+        message.info("个人视频上传成功，请等待审核。。")
     };
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
@@ -51,15 +74,28 @@ export default class UploadVideo extends React.Component{
             return;
         }
         if (info.file.status === 'done') {
-            // Get this url from response in real world.
             getBase64(info.file.originFileObj, imageUrl =>
                 this.setState({
                     imageUrl,
                     loading: false,
                 }),
             );
+            this.setState({
+                videoId: info.file.response.id,
+                coverUrl: info.file.response.coverUrl,
+            })
         }
     };
+    handleVideoChange = info => {
+        if (info.file.status === 'done') {
+            // 获取返回的视频id，方便后续的更新使用
+            this.setState({
+                videoId: info.file.response.id,
+                videoUrl: info.file.response.videoUrl,
+            })
+        }
+    };
+
     DatePickerOnChange(value, dateString) {
         console.log('Selected Time: ', value);
         console.log('Formatted Selected Time: ', dateString);
@@ -68,10 +104,6 @@ export default class UploadVideo extends React.Component{
         console.log('onOk: ', value);
     }
     render(){
-        let user = null;
-        if(sessionStorage.getItem('user') !== null){
-            user = JSON.parse(sessionStorage.getItem('user'))
-        }
         const uploadButton = (
             <div>
                 {this.state.loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -79,22 +111,60 @@ export default class UploadVideo extends React.Component{
             </div>
         );
         const uploadProps = {
-            action: `video/uploadVideo?userId=${user.id}`,
+            action: `video/uploadVideo`,
+            data: { 
+                userId: user.id, 
+                createTime: this.state.createTime,
+                videoId: this.state.videoId 
+            },
             listType: 'picture',
             name: 'video',
-            previewFile(file) {
-              console.log('你上传的文件是:', file);
-              return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
-                method: 'POST',
-                body: file,
-              })
-                .then(res => res.json())
-                .then(({ thumbnail }) => thumbnail);
-            },
+            onChange: this.handleVideoChange
         }
 
         const { imageUrl } = this.state;
-
+        const videoTagsData = [
+            {
+                value: 1,
+                label: '标签1'
+            },
+            {
+                value: 2,
+                label: '标签2'
+            },
+            {
+                value: 3,
+                label: '标签3'
+            },
+            {
+                value: 4,
+                label: '标签4'
+            },
+            {
+                value: 5,
+                label: '标签5'
+            },
+            {
+                value: 6,
+                label: '标签6'
+            },
+            {
+                value: 7,
+                label: '标签7'
+            },
+            {
+                value: 8,
+                label: '标签8'
+            },
+            {
+                value: 9,
+                label: '标签9'
+            },
+            {
+                value: 10,
+                label: '标签10'
+            },
+        ]
         return(
             <div id='uploadVideo'>
                 <Form
@@ -125,7 +195,12 @@ export default class UploadVideo extends React.Component{
                             listType="picture-card"
                             className="videoImg-uploader"
                             showUploadList={false}
-                            action={`video/uploadVideoCoverUrl?userId=${user.id}`}
+                            action={`video/uploadVideoCoverUrl`}
+                            data={{
+                                userId: user.id,
+                                createTime: this.state.createTime,
+                                videoId: this.state.videoId
+                            }}
                             beforeUpload={beforeUpload}
                             onChange={this.handleChange}
                         >
@@ -141,34 +216,6 @@ export default class UploadVideo extends React.Component{
                         <Input placeholder='请输入视频名称'/>
                     </Form.Item>
 
-                    {this.props.isTeacher === false ? (
-                        <Form.Item
-                            label="视频标签"
-                            name="videoTypes"
-                            rules={[{ required: true, message: '请选择视频标签!' }]}
-                        >
-                            <Select
-                                style={{ width: '100%' }}
-                                placeholder="请选择视频标签"
-                                showSearch
-                                optionFilterProp="children"
-                                // onChange={onChange}
-                                // onFocus={onFocus}
-                                // onBlur={onBlur}
-                                // onSearch={onSearch}
-                                filterOption={(input, option) =>
-                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                            >
-                                {this.props.videoTypesData.map(item => (
-                                    <Option  value={item.value} label={item.label} key={item.value}>
-                                        {item.label}
-                                    </Option>
-                                ))}
-                            </Select>
-                        </Form.Item>
-                    ) : null}
-
                     <Form.Item
                         label="视频标签"
                         name="videoTags"
@@ -178,11 +225,9 @@ export default class UploadVideo extends React.Component{
                             mode="multiple"
                             style={{ width: '100%' }}
                             placeholder="请选择合适的视频标签"
-                            // defaultValue={['china']}
-                            // onChange={handleChange}
                             optionLabelProp="label"
                         >
-                            {this.props.videoTagsData.map(item => (
+                            {videoTagsData.map(item => (
                                 <Option  value={item.value} label={item.label} key={item.value}>
                                     {item.label}
                                 </Option>

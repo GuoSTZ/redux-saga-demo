@@ -12,6 +12,7 @@ import Footer from '../../../components/footer/index'
 import DataCenter from '../../dataCenter/views/index'
 import CommentsManagement from '../../commentsManagement/views/index'
 import { CourseReleaseContainer } from '../../courseRelease/container'
+import { UploadVideoContainer } from '../../uploadVideo/container'
 
 import './index.less'
 
@@ -72,67 +73,10 @@ export default class OperationCenter extends React.Component{
     }
     renderPage = () => {
         const {reducer: { page }} = this.props
-        const videoTagsData = [
-            {
-                value: '标签1',
-                label: '标签1'
-            },
-            {
-                value: '标签2',
-                label: '标签2'
-            },
-            {
-                value: '标签3',
-                label: '标签3'
-            },
-            {
-                value: '标签4',
-                label: '标签4'
-            },
-            {
-                value: '标签5',
-                label: '标签5'
-            },
-            {
-                value: '标签6',
-                label: '标签6'
-            },
-            {
-                value: '标签7',
-                label: '标签7'
-            },
-            {
-                value: '标签8',
-                label: '标签8'
-            },
-            {
-                value: '标签9',
-                label: '标签9'
-            },
-            {
-                value: '标签10',
-                label: '标签10'
-            },
-        ]
-        const videoTypesData = [
-            {
-                value: '类别1',
-                label: '类别1'
-            },
-            {
-                value: '类别2',
-                label: '类别2'
-            },
-            {
-                value: '类别3',
-                label: '类别3'
-            },
-        ]
+
         switch(page){
             case PAGES.uploadPersonalVideo:
-                return <UploadVideo 
-                            videoTagsData={videoTagsData} 
-                            videoTypesData={videoTypesData}/>
+                return <UploadVideoContainer />
 
             case PAGES.courseRelease:
                 return <CourseReleaseContainer />

@@ -95,6 +95,20 @@ import {
     namespace as courseReleaseNamespace  
 } from '../pages/courseRelease/index';
 
+// uploadVideo
+import { 
+    rootSaga as uploadVideoRootSaga, 
+    AllReducer as uploadVideoReducer, 
+    namespace as uploadVideoNamespace  
+} from '../pages/uploadVideo/index';
+
+// myCourse
+import { 
+    rootSaga as myCourseRootSaga, 
+    AllReducer as myCourseReducer, 
+    namespace as myCourseNamespace  
+} from '../pages/myCourse/index';
+
 const sagaMiddleware = createSagaMiddleware() // 执行
 
 const reducers = Object.assign({}, {
@@ -111,6 +125,8 @@ const reducers = Object.assign({}, {
     [browsingHistoryNamespace]: browsingHistoryReducer,
     [changePasswordNamespace]: changePasswordReducer,
     [courseReleaseNamespace]: courseReleaseReducer,
+    [uploadVideoNamespace]: uploadVideoReducer,
+    [myCourseNamespace]: myCourseReducer,
 })
 
 const reducerAll = combineReducers({
@@ -136,3 +152,5 @@ sagaMiddleware.run(changeMessageRootSaga)
 sagaMiddleware.run(browsingHistoryRootSaga)
 sagaMiddleware.run(changePasswordRootSaga)
 sagaMiddleware.run(courseReleaseRootSaga)
+sagaMiddleware.run(uploadVideoRootSaga)
+sagaMiddleware.run(myCourseRootSaga)

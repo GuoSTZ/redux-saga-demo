@@ -20,12 +20,12 @@ export const sagas = Object.assign({}, {
             teacherId: action.payload.teacherId,
             purchasesNum: 0,
             discount: 1,
+            filename: action.payload.filename,
         }
         let data = yield call(Api.courseSubmit, payload)
     },
     courseTypeSubmit: function * (action) {
         let data = yield call(Api.courseTypeSubmit, action.payload)
-        console.log(data, '.....')
     },
     videoSubmit: function * (action) {
         let payload = {

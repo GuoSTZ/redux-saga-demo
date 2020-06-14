@@ -279,7 +279,6 @@ export default class CourseRelease extends React.Component{
             this.setState({
                 formData: Object.assign({},values)
             })
-            console.log(this.state.videoUrl, 'this.state.videoUrl')
             actions.videoSubmit(Object.assign({}, values, {
                 id: this.state.videoId,
                 videoUrl: this.state.videoUrl,
@@ -287,6 +286,7 @@ export default class CourseRelease extends React.Component{
                 date: moment().format('x'),
                 coverUrl: this.state.coverUrl, // 课程下的视频和课程的封面相同
                 userId: user.id,
+                filename: this.state.filename
             }));
             actions.videoTagSubmit({
                 tagList: values.videoTags.join("-"),
@@ -316,13 +316,13 @@ export default class CourseRelease extends React.Component{
                 courseId: info.file.response.id,
                 createTime: info.file.response.date,
                 coverUrl: info.file.response.coverUrl,
+                filename: info.file.response.filename
             })
         }
     };
 
     handleChange2 = info => {
         if (info.file.status === 'done') {
-            console.log(info.file.response.videoUrl, '----------------------')
             // 获取返回的视频id，方便后续的更新使用
             this.setState({
                 videoId: info.file.response.id,
@@ -375,7 +375,7 @@ export default class CourseRelease extends React.Component{
         const { current, imageUrl, loading, createTime } = this.state;
 
         return (
-            <div id='courseRelease'>
+            <div id='courseRelease' style={{minHeight: document.body.clientHeight - 120}}>
                 <Steps current={current}>
                     {steps.map(item => (
                         <Step key={item.title} title={item.title} />

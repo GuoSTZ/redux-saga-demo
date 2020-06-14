@@ -8,7 +8,9 @@ import { reducerActions } from './reducer'
 export const sagas = Object.assign({}, {
     fetchCourseMessage: function * (action){
         let data = yield call(Api.fetchCourseMessage, action.payload)
-        yield put(reducerActions.updateCourseMessage(data))
+        if(data.id !== undefined){
+            yield put(reducerActions.updateCourseMessage(data))
+        }
     },
     purchase: function * (action){
         let data = yield call(Api.purchase, action.payload)

@@ -11,7 +11,7 @@ import Header from '../../../components/header'
 import { ChangeMessageContainer } from '../../changeMessage/container'
 import { BrowsingHistoryContainer } from '../../browsingHistory/container'
 import { ChangePasswordContainer } from '../../changePassword/container'
-import MyCourse from '../../myCourse/views/index'
+import { MyCourseContainer } from '../../myCourse/container'
 import MyWork from '../../myWork/views/index'
 import BrowsingHistory from '../../browsingHistory/views/index'
 
@@ -52,7 +52,7 @@ export default class PersonalCenter extends React.Component{
             case PAGES.changePassword:
                 return <ChangePasswordContainer user={user} />
             case PAGES.myCourse:
-                return <MyCourse />
+                return <MyCourseContainer user={user} />
             case PAGES.myWork:
                 return <MyWork />
             case PAGES.browsinghistory:
