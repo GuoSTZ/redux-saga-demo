@@ -12,6 +12,17 @@ import './index.less'
 const { TabPane } = Tabs;
 const { Text } = Typography;
 
+const courseLevel = [
+    {
+        value: 1,
+        label: '初级课程'
+    },
+    {
+        value: 2,
+        label: '高级课程'
+    },
+]
+
 export default class CoursePage extends React.Component{
     componentDidMount(){
         const { actions } = this.props
@@ -22,7 +33,8 @@ export default class CoursePage extends React.Component{
             userId: JSON.parse(sessionStorage.getItem('user')).id,
             courseId: parseInt(sessionStorage.getItem('courseId')),
         });
-        console.log(sessionStorage, '***')
+        // 获取该课程下的视频
+        actions.fetchNewVideoMessageByCourseId({courseId: parseInt(sessionStorage.getItem('courseId'))})
     }
     callback(key) {
         console.log(key);
@@ -45,7 +57,7 @@ export default class CoursePage extends React.Component{
     }
     // 通知消息框
     openNotification = () => {
-        notification.info({
+        notification.warning({
             message: <h3>{'购买提醒'}</h3>,
             description: '您尚未购买该课程，无法观看该课程下的教学视频，请购买后再进行操作',
             placement: 'topLeft',
@@ -54,7 +66,7 @@ export default class CoursePage extends React.Component{
         //     console.log('测试测试');
         //   },
         });
-      };
+    };
     videoItemClick = (videoId) => {
         const { reducer: { courseStatus } } = this.props
         // 当课程状态不为true，即用户没有购买该课程时
@@ -65,8 +77,15 @@ export default class CoursePage extends React.Component{
         sessionStorage.setItem('videoId', videoId) // 存储videoId，下一个页面进行使用
         this.props.history.push('/videoPage')
     }
+    renderCourseLevel = (level) => {
+        for(let item of courseLevel){
+            if(item.value === level){
+                return item.label
+            }
+        }
+    }
     render(){
-        const { reducer: { courseMessage, courseStatus } } = this.props
+        const { reducer: { courseMessage, courseStatus, newVideoMessage } } = this.props
         // 取出sessionStorage中的user对象
         let user = null
         if(sessionStorage.getItem('user') !== null){
@@ -77,18 +96,11 @@ export default class CoursePage extends React.Component{
                 level: '初级课程',
                 courseData: [
                     {id: 1, name: '三节棍教学视频VIP课程'},
-                    {id: 2, name: '三节棍教学视频基础课程'},
                 ]
             },
             {
                 level: '高级课程',
-                courseData: [
-                    {id: 6, name: '三节棍教学视频VIP课程'},
-                    {id: 7, name: '三节棍教学视频基础课程'},
-                    {id: 8, name: '三节棍教学视频进阶课程'},
-                    {id: 9, name: '三节棍教学视频免费课程'},
-                    {id: 10, name: '三节棍教学视频视频课程'}
-                ]
+                courseData: []
             }
         ]
         const otherCourseData = [
@@ -114,6 +126,8 @@ export default class CoursePage extends React.Component{
             },
         ]
 
+        console.log(newVideoMessage, 'newVideoMessage')
+
         return(
             <section id='coursePage'>
                 <Header 
@@ -133,10 +147,12 @@ export default class CoursePage extends React.Component{
                                     <Text delete>￥{courseMessage.price.toFixed(2)}</Text>
                                 </section>
                                 <section className='rate'>
-                                    学员评分：<Rate disabled allowHalf  defaultValue={3.5} />
+                                    学员评分：<Rate disabled allowHalf defaultValue={3.5} />
                                 </section>
                                 {
-                                    courseStatus ? (
+                                    user.id === courseMessage.teacherId ? (
+                                        <Button type='danger'>已发布</Button>
+                                    ) : courseStatus ? (
                                         <Button type='danger'>已购买</Button>
                                     ) : (
                                         <Button type='primary' onClick={this.purchase}>立即购买</Button>
@@ -149,33 +165,57 @@ export default class CoursePage extends React.Component{
                         <section className='catalog'>
                             <Tabs defaultActiveKey="1" onChange={this.callback}>
                                 <TabPane tab="课程资源" key="1">
-                                    {courseCatalog.map((item, index) => (
-                                        <List
-                                            key={index}
-                                            size="small"
-                                            header={
-                                                <div style={{color: '#000', fontSize: 18}}>{item.level}</div>
-                                            }
-                                            bordered
-                                            split={false}
-                                            dataSource={item.courseData}
-                                            renderItem={(item, index) => (
-                                                <section to={`/videoPage`} onClick={() => this.videoItemClick(item.id)}>
-                                                    <List.Item 
-                                                        key={index}
-                                                        extra={
-                                                            <section>
-                                                                <PlayCircleOutlined style={{fontSize: 16, marginRight: 8}}/>
-                                                                01:05:12
-                                                            </section>
-                                                        }
-                                                    >
-                                                            {item.name}
-                                                    </List.Item>
-                                                </section>
-                                            )}
-                                        />
-                                    ))}
+                                    <List
+                                        size="small"
+                                        header={
+                                            <div style={{color: '#000', fontSize: 18}}>
+                                                {"初级课程"}
+                                            </div>
+                                        }
+                                        bordered
+                                        split={false}
+                                        dataSource={newVideoMessage}
+                                        renderItem={(item, index) => (
+                                            <section to={`/videoPage`} onClick={() => this.videoItemClick(item.id)}>
+                                                <List.Item 
+                                                    key={index}
+                                                    extra={
+                                                        <section>
+                                                            <PlayCircleOutlined style={{fontSize: 16, marginRight: 8}}/>
+                                                        </section>
+                                                    }
+                                                >
+                                                        {item.name}
+                                                </List.Item>
+                                            </section>
+                                        )}
+                                    />
+
+                                    <List
+                                        size="small"
+                                        header={
+                                            <div style={{color: '#000', fontSize: 18}}>
+                                                {"高级课程"}
+                                            </div>
+                                        }
+                                        bordered
+                                        split={false}
+                                        dataSource={[]}
+                                        renderItem={(item, index) => (
+                                            <section to={`/videoPage`} onClick={() => this.videoItemClick(item.id)}>
+                                                <List.Item 
+                                                    key={index}
+                                                    extra={
+                                                        <section>
+                                                            <PlayCircleOutlined style={{fontSize: 16, marginRight: 8}}/>
+                                                        </section>
+                                                    }
+                                                >
+                                                        {item.name}
+                                                </List.Item>
+                                            </section>
+                                        )}
+                                    />
                                 </TabPane>
                                 <TabPane tab="课程介绍" key="2" >
                                     <Empty style={{height: 200,paddingTop: 50}} />

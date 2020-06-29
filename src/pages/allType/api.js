@@ -12,3 +12,15 @@ export function fetchType(params){
     body: params
   });
 }
+
+export function fetchCourseMessageByTypeId(params){
+  return fetchGet(`course/getByTypeId`, {
+    body: params
+  });
+}
+
+export function fetchNewVideoMessageByCourseId(params) {
+  return fetchGet(`video/getNewVideoMessageByCourseId`,{
+    body: params
+  })
+}

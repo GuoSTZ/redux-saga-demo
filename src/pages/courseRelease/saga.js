@@ -42,6 +42,8 @@ export const sagas = Object.assign({}, {
             viewNum: 0,
             autograph: action.payload.videoIntroduction,
             level: 1,
+            videoResUrl: action.payload.videoResUrl,
+            keypointUrl: action.payload.keypointUrl,
         }
         let data = yield call(Api.videoSubmit, payload)
     },

@@ -113,10 +113,17 @@ export default class OperationCenter extends React.Component{
                                 <PieChartOutlined />
                                 <span>个人视频上传</span>
                             </Menu.Item>
-                            <Menu.Item key="2">
-                                <DesktopOutlined />
-                                <span>课程发布</span>
-                            </Menu.Item>
+                            {console.log(user)}
+                            {
+                                user.authority === 1 ? null :
+                                (
+                                    <Menu.Item key="2">
+                                        <DesktopOutlined />
+                                        <span>课程发布</span>
+                                    </Menu.Item>
+                                )
+                            }
+
                             <Menu.Item key="3">
                                 <ContainerOutlined />
                                 <span>数据中心</span>

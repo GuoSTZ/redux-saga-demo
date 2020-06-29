@@ -30,3 +30,9 @@ export function test(params) {
     body: params
   });
 }
+
+export function fetchNewVideoMessageByCourseId(params) {
+  return fetchGet(`video/getNewVideoMessageByCourseId`,{
+    body: params
+  })
+}

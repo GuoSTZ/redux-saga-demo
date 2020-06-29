@@ -65,8 +65,10 @@ export default class ChangeMessage extends React.Component{
     onFinish = values => {
         const { actions, user } = this.props
         let newValues = Object.assign({}, values, {birthday: values.birthday.format("x")})
-        if(this.isFormDateChanged(this.state.formData, values))
+        if(this.isFormDateChanged(this.state.formData, values)){
             actions.updateUser(newValues)
+            message.success("资料修改成功")
+        }
     };
     
     onFinishFailed = errorInfo => {
@@ -129,12 +131,13 @@ export default class ChangeMessage extends React.Component{
                         <Input disabled />
                     </Form.Item>
 
-                    {/* <Form.Item
+                    <Form.Item
                         label="UID"
                         name="uid"
+                        hidden
                     >
                         <Input disabled/>
-                    </Form.Item> */}
+                    </Form.Item>
 
                     <Form.Item
                         label="头像"

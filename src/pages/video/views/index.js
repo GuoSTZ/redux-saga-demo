@@ -81,6 +81,7 @@ export default class VideoPage extends React.Component{
     }
     render(){
         const { reducer: { comments, videoMessage } } = this.props
+        console.log(videoMessage, ' videoMessage')
         const popoverContent = (
             <section>
                 <Space size={20}>

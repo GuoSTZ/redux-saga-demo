@@ -13,6 +13,15 @@ export const sagas = Object.assign({}, {
         let data = yield call(Api.fetchType, payload);
         if(data !== undefined)
             yield put(reducerActions.updateType(data))
+    },
+    fetchCourseMessageByTypeId: function * (action){
+        let data = yield call(Api.fetchCourseMessageByTypeId, action.payload);
+        console.log(data, 'data**')
+        yield put(reducerActions.updateCourseMessage(data))
+    },
+    fetchNewVideoMessageByCourseId: function * (action) {
+        let data = yield call(Api.fetchNewVideoMessageByCourseId, action.payload)
+        yield put(reducerActions.updateCourseMessage(data))
     }
 })
 

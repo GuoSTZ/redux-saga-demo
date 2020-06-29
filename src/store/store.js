@@ -109,6 +109,27 @@ import {
     namespace as myCourseNamespace  
 } from '../pages/myCourse/index';
 
+// homeworkUpload
+import { 
+    rootSaga as homeworkUploadRootSaga, 
+    AllReducer as homeworkUploadReducer, 
+    namespace as homeworkUploadNamespace  
+} from '../pages/homeworkUpload/index';
+
+// poseEstimation
+import { 
+    rootSaga as poseEstimationRootSaga, 
+    AllReducer as poseEstimationReducer, 
+    namespace as poseEstimationNamespace  
+} from '../pages/poseEstimation/index';
+
+// myWork
+import { 
+    rootSaga as myWorkRootSaga, 
+    AllReducer as myWorkReducer, 
+    namespace as myWorkNamespace  
+} from '../pages/myWork/index';
+
 const sagaMiddleware = createSagaMiddleware() // 执行
 
 const reducers = Object.assign({}, {
@@ -127,6 +148,9 @@ const reducers = Object.assign({}, {
     [courseReleaseNamespace]: courseReleaseReducer,
     [uploadVideoNamespace]: uploadVideoReducer,
     [myCourseNamespace]: myCourseReducer,
+    [homeworkUploadNamespace]: homeworkUploadReducer,
+    [poseEstimationNamespace]: poseEstimationReducer,
+    [myWorkNamespace]: myWorkReducer,
 })
 
 const reducerAll = combineReducers({
@@ -154,3 +178,6 @@ sagaMiddleware.run(changePasswordRootSaga)
 sagaMiddleware.run(courseReleaseRootSaga)
 sagaMiddleware.run(uploadVideoRootSaga)
 sagaMiddleware.run(myCourseRootSaga)
+sagaMiddleware.run(homeworkUploadRootSaga)
+sagaMiddleware.run(poseEstimationRootSaga)
+sagaMiddleware.run(myWorkRootSaga)

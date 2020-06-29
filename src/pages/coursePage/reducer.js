@@ -15,6 +15,12 @@ export const reduces = Object.assign(defaultReducer(), {
             courseStatus: action.payload
         }
     },
+    updateNewVideoMessage: (state, action) => {
+        return {
+            ...state,
+            newVideoMessage: action.payload
+        }
+    }
 })
 
 export const reducerActions = createDefineActions(reduces, namespace)
@@ -24,6 +30,7 @@ export const initialState = Object.assign({}, defaultState, {
         price: 0
     },
     courseStatus: false,
+    newVideoMessage: [{}]
 })
 
 export default reducerCreator(megerActionReducer(reduces, reducerActions), initialState)

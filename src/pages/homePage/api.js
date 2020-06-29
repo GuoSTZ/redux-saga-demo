@@ -24,3 +24,15 @@ export function isKeyExist(params) {
     body: params
   })
 }
+
+export function fetchNewCourseMessageByTypeId(params) {
+  return fetchGet(`courseType/getNewCourseMessageByTypeId`,{
+    body: params
+  })
+}
+
+export function fetchNewVideoMessageByCourseId(params) {
+  return fetchGet(`video/getNewVideoMessageByCourseId`,{
+    body: params
+  })
+}

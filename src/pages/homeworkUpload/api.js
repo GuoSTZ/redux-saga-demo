@@ -6,3 +6,9 @@ export function fetchData(params) {
       body: params
     });
 }
+
+export function fetchMyHomeworkMessage(params) {
+  return fetchGet(`myHomework/getMyHomeworkMessageByUserId`, {
+      body: params
+  });
+}

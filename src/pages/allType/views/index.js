@@ -17,9 +17,17 @@ export default class AllType extends React.Component{
 
     componentDidMount(){
         const { actions, location: {search} } = this.props
-        let str = 'id='
-        if(search !== ''){
-            actions.fetchType( {typeId: search.slice(search.indexOf(str) + str.length, search.length)} )
+        console.log(sessionStorage.getItem('typeId'), '+++++++++++++')
+        if(sessionStorage.getItem('typeId') === null){
+            actions.fetchType( {typeId: 1} )
+            actions.fetchNewVideoMessageByCourseId({courseId: 1})
+        } else{
+            actions.fetchType( {typeId: parseInt(sessionStorage.getItem('typeId'))} )
+            if(parseInt(sessionStorage.getItem('typeId')) === 7){
+                actions.fetchNewVideoMessageByCourseId({courseId: 0})
+            } else{
+                actions.fetchCourseMessageByTypeId( {typeId: parseInt(sessionStorage.getItem('typeId'))} )
+            }
         }
     }
     
@@ -30,8 +38,14 @@ export default class AllType extends React.Component{
             selectedTags: nextSelectedTags 
         });
     }
-    onChange = checkedValues => {
-        console.log('checked = ', checkedValues);
+    onChange = e => {
+        const { actions } = this.props
+        // 点击个人视频时
+        if(e.target.value === 7){
+            actions.fetchNewVideoMessageByCourseId({courseId: 0})
+            return;
+        }
+        actions.fetchCourseMessageByTypeId( {typeId: e.target.value} )
     }
     closeTag = index => {
         let selectedTags = this.state.selectedTags
@@ -53,10 +67,15 @@ export default class AllType extends React.Component{
     };
 
     render(){
+        // 取出sessionStorage中的user对象
+        let user = null
+        if(sessionStorage.getItem('user') !== null){
+            user = JSON.parse(sessionStorage.getItem('user'))
+        }
         const options = [
             { id: 8, label: '正在直播', value: 8 },  // 状态，检查有什么课程正在直播
             { id: 1, label: 'VIP课程', value: 1 },   // 可以理解为需要付费的课程
-            { id: 2, label: '通用课程', value: 2 },  // 通用课程
+            { id: 2, label: '进阶课程', value: 2 },  // 进阶课程
             { id: 3, label: '基础课程', value: 3 },  // 基础课程
             { id: 4, label: '免费课程', value: 4 },  // 可以理解为不需要付费的课程
             { id: 5, label: '直播课程', value: 5 },  // 以直播的形式进行教学
@@ -71,88 +90,13 @@ export default class AllType extends React.Component{
             '标签十七', '标签十八', '标签十九', '标签二十',
             '标签二十一', '标签二十二', '标签二十三', '标签二十四',
         ];
-        const courseData = [
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            }
-        ];
-        const {location: {search}} = this.props
-        let radioDefaultValue = search.slice(search.indexOf('id=') + 'id='.length, search.length)
+        const { reducer: {courseMessage} } = this.props
         return(
             <section id='allType'>
                 <Header 
-                    user={{src:''}}
+                    user={user}
                 />
-                <main>
+                <main style={{minHeight: document.body.clientHeight - 100}}>
                     <section>
                         <Button type="primary" onClick={this.showDrawer} className='selectedTagBtn'>
                             查看当前已选标签
@@ -175,12 +119,12 @@ export default class AllType extends React.Component{
                     <section className='courses'>
                         <section className='category'>
                             <span>课程类别</span>
-                            <Radio.Group options={options} onChange={this.onChange} defaultValue={parseInt(radioDefaultValue)} />
+                            <Radio.Group options={options} onChange={this.onChange} defaultValue={parseInt(sessionStorage.getItem('typeId') || 1)} />
                         </section>
                         <section className='container'>
                             <List
                                 grid={{ gutter: 16, column: 5 }}
-                                dataSource={courseData}
+                                dataSource={courseMessage}
                                 renderItem={item => (
                                 <List.Item style={{marginTop: '40px'}}>
                                     <Card
@@ -188,17 +132,19 @@ export default class AllType extends React.Component{
                                         cover={
                                             <img
                                             alt="video"
-                                            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                                            width={272}
+                                            height={168}
+                                            src={item.coverUrl}
                                             />
                                         }
                                     >
-                                        <Meta title={item.courseName} description={item.teacher} />
+                                        <Meta title={item.name} description={item.teacherName || item.userName} />
                                     </Card>
                                 </List.Item>
                                 )}
                             />
 
-                            <Pagination defaultCurrent={1} total={200} />
+                            {/* <Pagination defaultCurrent={1} total={200} /> */}
 
                         </section>
                     </section>

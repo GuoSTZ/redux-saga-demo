@@ -21,6 +21,16 @@ export const sagas = Object.assign({}, {
             sessionStorage.setItem('user', JSON.stringify(result))
         }
     },
+    fetchNewCourseMessageByTypeId: function * (action) {
+        let data = yield call(Api.fetchNewCourseMessageByTypeId, action.payload)
+        // console.log(data, 'getNewCourseMessageByTypeId')
+        yield put(reducerActions.updateNewCourseMessage(data))
+    },
+    fetchNewVideoMessageByCourseId: function * (action) {
+        let data = yield call(Api.fetchNewVideoMessageByCourseId, action.payload)
+        // console.log(data, 'fetchNewVideoMessageByCourseId')
+        yield put(reducerActions.updateNewVideoMessage(data))
+    }
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)

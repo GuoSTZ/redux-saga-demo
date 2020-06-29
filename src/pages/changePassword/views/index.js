@@ -8,7 +8,6 @@ import CheckPhoneStep from './steps/checkPhoneStep'
 import { withRouter } from 'react-router-dom'
 
 import './index.less'
-import { actionTypes } from '../../../common/actionTypes';
 
 const { Step } = Steps;
 
@@ -55,12 +54,18 @@ class ChangePassword extends React.Component{
         })
     }
 
+    getCheckCode = () => {
+        const { actions } = this.props
+        actions.getCheckCode()
+    }
+
     render() {
         const { current } = this.state;
+        const { reducer: {sec} } = this.props
         const steps = [
             {
               title: '手机验证',
-              content: <CheckPhoneStep phoneRef={this.formRef}/>,
+              content: <CheckPhoneStep sec={sec} phoneRef={this.formRef} getCheckCode={this.getCheckCode}/>,
             },
             {
               title: '密码修改',

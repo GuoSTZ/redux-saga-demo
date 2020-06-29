@@ -8,7 +8,10 @@ import { reducerActions } from './reducer'
 export const sagas = Object.assign({}, {
     changePage: function * (action){
         yield put( reducerActions.updatePage( action.payload ) )
-    }
+    },
+    authentication: function * (action){
+        yield call( Api.authentication, action.payload )
+    },
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)

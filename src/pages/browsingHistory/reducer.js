@@ -16,12 +16,12 @@ export const reducerActions = createDefineActions(reduces, namespace)
 export const initialState = Object.assign({}, defaultState, {
     timeLineItems: [
         {
-            browsingTime: '2015-09-01 09:50',
-            videoCoverUrl: 'http://guostz.gitee.io/graduationprojectresource/resource/images/browsingHistory/群星.jpg',
-            videoName: '视频的名称',
-            userName: '视频作者',
-            process: '视频已看进度',
-            type: '视频类别'
+            // browsingTime: '2015-09-01 09:50',
+            // videoCoverUrl: 'http://guostz.gitee.io/graduationprojectresource/resource/images/browsingHistory/群星.jpg',
+            // videoName: '视频的名称',
+            // userName: '视频作者',
+            // process: '视频已看进度',
+            // type: '视频类别'
         },
     ]
 })

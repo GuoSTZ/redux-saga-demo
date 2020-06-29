@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Button, Affix } from 'antd';
+import { Menu, Button, Affix, message } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -12,20 +12,22 @@ import { ChangeMessageContainer } from '../../changeMessage/container'
 import { BrowsingHistoryContainer } from '../../browsingHistory/container'
 import { ChangePasswordContainer } from '../../changePassword/container'
 import { MyCourseContainer } from '../../myCourse/container'
-import MyWork from '../../myWork/views/index'
-import BrowsingHistory from '../../browsingHistory/views/index'
+import { HomeworkUploadContainer } from '../../homeworkUpload/container'
+import { MyWorkContainer } from '../../myWork/container'
 
 import './index.less'
-
-const { SubMenu } = Menu;
 
 const PAGES = {
     changeMessage: '1',
     changePassword: '2',
     myCourse: '3',
+    homeworkUpload: '4',
     myWork: '5',
-    browsinghistory: '7'
+    browsinghistory: '7',
+    authentication: '8'
 }
+
+
 
 export default class PersonalCenter extends React.Component{
 
@@ -44,6 +46,12 @@ export default class PersonalCenter extends React.Component{
         actions.changePage(key);
     }
 
+    authentication = user => {
+        const { actions } = this.props
+        actions.authentication({userId: user.id})
+        message.success("教师资格认证成功啦！")
+    }
+
     renderPage(user){
         const {reducer: {page}} = this.props
         switch(page){
@@ -53,10 +61,14 @@ export default class PersonalCenter extends React.Component{
                 return <ChangePasswordContainer user={user} />
             case PAGES.myCourse:
                 return <MyCourseContainer user={user} />
+            case PAGES.homeworkUpload:
+                return <HomeworkUploadContainer user={user} />
             case PAGES.myWork:
-                return <MyWork />
+                return <MyWorkContainer />
             case PAGES.browsinghistory:
                 return <BrowsingHistoryContainer />
+            case PAGES.authentication:
+                return <Button type="primary" onClick={() => this.authentication(user)}>教师资格认证</Button>
         }
         
     }

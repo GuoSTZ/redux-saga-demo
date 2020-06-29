@@ -1,6 +1,6 @@
 import {sagaActions} from './saga';
 import {connect} from 'react-redux';
-import IndexPage from "./views/index"
+import HomeworkUpload from "./views/index"
 import { bindActionCreators as bindActions } from 'redux';
 import { namespace } from './model';
 
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch, props) => {
 }
 
 
-export const IndexPageContainer = connect(
+export const HomeworkUploadContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(IndexPage)
+)(HomeworkUpload)

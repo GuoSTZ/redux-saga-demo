@@ -12,11 +12,6 @@ import moment from 'moment';
 const { Step } = Steps;
 const { Option } = Select;
 
-let user = null
-if(sessionStorage.getItem('user') !== null){
-    user = JSON.parse(sessionStorage.getItem('user'))
-}
-
 function getBase64(img, callback) {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
@@ -41,7 +36,7 @@ const UploadButton = ({loading}) => (
     </div>
 );
 
-const CreateCourse = ({createTime, handleChange2, imageUrl, loading, handleChange, handleSelectChange}) => (
+const CreateCourse = ({createTime, handleChange2, state , handleChange, handleSelectChange}) => (
     <>
         <Form.Item
             label="课程名称"
@@ -68,10 +63,11 @@ const CreateCourse = ({createTime, handleChange2, imageUrl, loading, handleChang
                 placeholder="请选择课程类型"
             >
                 <Option value={1}>VIP课程</Option>
-                <Option value={3}>基础课程</Option>
                 <Option value={2}>进阶课程</Option>
-                <Option value={6}>视频课程</Option>
+                <Option value={3}>基础课程</Option>
+                <Option value={4}>免费课程</Option>
                 <Option value={5}>直播课程</Option>
+                <Option value={6}>视频课程</Option>
             </Select>
         </Form.Item>
         
@@ -89,14 +85,14 @@ const CreateCourse = ({createTime, handleChange2, imageUrl, loading, handleChang
                 showUploadList={false}
                 action={`course/uploadCourseCover`}
                 data={{
-                    userId: user.id,
+                    userId: JSON.parse(sessionStorage.getItem('user')).id,
                     createTime: moment().format('x')
                 }}
                 beforeUpload={beforeUpload}
                 onChange={handleChange}
             >
                 
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : <UploadButton loading={loading} />}
+                {state.imageUrl ? <img src={state.imageUrl} alt="avatar" style={{ width: '100%' }} /> : <UploadButton loading={state.loading} />}
             </Upload>
         </Form.Item> 
 
@@ -107,7 +103,7 @@ const CreateCourse = ({createTime, handleChange2, imageUrl, loading, handleChang
             wrapperCol={{span: 16}}
             rules={[{ required: true, message: '请填入课程价格!' }]}
         >
-            <Input placeholder="为你的课程定个价，若免费，则填入0"/>
+            <Input placeholder="为你的课程定个价" disabled={state.coursePriceDisabled}/>
         </Form.Item>
         
         <Form.Item
@@ -132,9 +128,8 @@ const UploadVideo = ({createTime, handleChange2}) => {
         action: 'course/uploadVideo',
         listType: 'picture',
         data: {
-            userId: user.id,
-            // createTime: createTime,
-            createTime: 1592060277942,
+            userId: JSON.parse(sessionStorage.getItem('user')).id,
+            createTime: createTime,
         },
         onChange: handleChange2
     }
@@ -198,14 +193,6 @@ const UploadVideo = ({createTime, handleChange2}) => {
             >
                 <Input.TextArea autoSize={{minRows: 2, maxRows: 6}} placeholder="请输入视频简介，不要超出200字"/>
             </Form.Item>
-            <Form.Item
-                label="备用字段1"
-                name="beiyong"
-                labelCol={{span: 4}}
-                wrapperCol={{span: 16}}
-            >
-                <Input placeholder="当前为备选字段，暂时保留"/>
-            </Form.Item>
         </>
     )
 }
@@ -213,10 +200,9 @@ const UploadVideo = ({createTime, handleChange2}) => {
 const steps = [
     {
       title: '课程创建',
-      content: (createTime, handleChange2, imageUrl, loading, handleChange, handleSelectChange) => (
+      content: (createTime, handleChange2, state , handleChange, handleSelectChange) => (
         <CreateCourse
-            imageUrl={imageUrl} 
-            loading={loading} 
+            state={state}
             handleChange={handleChange}
             handleSelectChange={handleSelectChange}/>
         ),
@@ -236,11 +222,11 @@ export default class CourseRelease extends React.Component{
             formData: {},
             // imageUrl: '',
             loading: false,
+            coursePriceDisabled: false
         };
     }
 
     componentDidMount(){
-        console.log(sessionStorage, '****')
     }
     
     next() {
@@ -263,7 +249,8 @@ export default class CourseRelease extends React.Component{
                 id: this.state.courseId,
                 date: moment().format('x'),
                 coverUrl: this.state.coverUrl,
-                teacherId: user.id
+                teacherId: JSON.parse(sessionStorage.getItem('user')).id,
+                filename: this.state.filename
             }));
             actions.courseTypeSubmit({
                 typeList: values.courseType.join("-"), 
@@ -275,6 +262,7 @@ export default class CourseRelease extends React.Component{
 
     videoSubmit = () => {
         const {actions} = this.props
+        console.log(this.props, 'props')
         this.formRef.current.validateFields().then(values => {
             this.setState({
                 formData: Object.assign({},values)
@@ -285,8 +273,9 @@ export default class CourseRelease extends React.Component{
                 courseId: this.state.courseId,
                 date: moment().format('x'),
                 coverUrl: this.state.coverUrl, // 课程下的视频和课程的封面相同
-                userId: user.id,
-                filename: this.state.filename
+                userId: JSON.parse(sessionStorage.getItem('user')).id,
+                videoResUrl: this.state.videoResUrl,
+                keypointUrl: this.state.keypointUrl,
             }));
             actions.videoTagSubmit({
                 tagList: values.videoTags.join("-"),
@@ -294,6 +283,9 @@ export default class CourseRelease extends React.Component{
             })
         })
         message.success('课程创建完成')
+        setTimeout(()=>{
+            window.location.reload()
+        }, 500)
     }
 
     handleChange = info => {
@@ -327,6 +319,8 @@ export default class CourseRelease extends React.Component{
             this.setState({
                 videoId: info.file.response.id,
                 videoUrl: info.file.response.videoUrl,
+                videoResUrl: info.file.response.videoResUrl,
+                keypointUrl: info.file.response.keypointUrl,
             })
         }
     };
@@ -364,6 +358,18 @@ export default class CourseRelease extends React.Component{
                 return;
             }
         }
+        // 当选中免费标签时
+        if(values.indexOf(4) !== -1){
+            this.formRef.current.setFieldsValue({coursePrice: 0})
+            this.setState({
+                coursePriceDisabled: true
+            })
+        } else{
+            this.formRef.current.setFieldsValue({coursePrice: ""})
+            this.setState({
+                coursePriceDisabled: false
+            })
+        }
         this.setState({
             courseType: values
         })
@@ -372,7 +378,7 @@ export default class CourseRelease extends React.Component{
     
     
     render() {
-        const { current, imageUrl, loading, createTime } = this.state;
+        const { current, createTime } = this.state;
 
         return (
             <div id='courseRelease' style={{minHeight: document.body.clientHeight - 120}}>
@@ -387,7 +393,7 @@ export default class CourseRelease extends React.Component{
                     ref={this.formRef}
                 >
                     <div className="steps-content" style={{marginTop: 40}}>
-                        {steps[current].content(createTime, this.handleChange2, imageUrl, loading, this.handleChange, this.handleSelectChange)}
+                        {steps[current].content(createTime, this.handleChange2, this.state, this.handleChange, this.handleSelectChange)}
                     </div>
                 </Form>
                 <Row>

@@ -1,40 +1,26 @@
 import React from 'react'
 import { List, Card, Affix, Button } from 'antd';
+import { actionChannel } from 'redux-saga/effects';
+import moment from 'moment';
 
 const { Meta } = Card;
 
 export default class MyWork extends React.Component{
     componentDidMount(){
-        console.log( this )
+        const {actions} = this.props
+        let user = null
+        if(sessionStorage.getItem('user') !== null){
+            user = JSON.parse(sessionStorage.getItem('user'))
+        }
+        actions.fetchMyWork({teacherId: user.id})
     }
     render(){
-        const data = [
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-            {
-                courseName: '三节棍教学视频',
-                teacher: '小王老师'
-            },
-        ];
+        const { reducer: {myWork} } = this.props
         return(
             <div>
                 <List
                     grid={{ gutter: 12, column: 4 }}
-                    dataSource={data}
+                    dataSource={myWork}
                     renderItem={item => (
                     <List.Item style={{marginTop: '40px'}}>
                         <Card
@@ -42,11 +28,13 @@ export default class MyWork extends React.Component{
                             cover={
                                 <img
                                     alt="video"
-                                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                                    width={272}
+                                    height={168}
+                                    src={item.coverUrl}
                                 />
                             }
                         >
-                            <Meta title={item.courseName} description={item.teacher} />
+                            <Meta title={item.name} description={moment(item.date).format("YYYY-MM-DD")} />
                         </Card>
                     </List.Item>
                     )}

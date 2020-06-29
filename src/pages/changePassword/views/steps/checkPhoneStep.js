@@ -13,6 +13,17 @@ const tailLayout = {
 
 
 export default class CheckPhoneStep extends React.Component{
+    renderSec = sec => {
+        if(sec === 1){
+            return `重新获取`
+        }
+        if(sec > 1 && sec < 60){
+            return `${sec}s后重新获取`
+        }
+        else {
+            return `获取验证码`
+        }
+    }
     render(){
         return (
             <div id='checkPhoneStep'>
@@ -60,7 +71,11 @@ export default class CheckPhoneStep extends React.Component{
                             <Form.Item
                                 name="checkCode"
                             >
-                                <Button style={{width: '100%'}}>获取验证码</Button>
+                                <Button style={{width: '100%'}} onClick={this.props.getCheckCode}>
+                                    {
+                                        this.renderSec(this.props.sec)
+                                    }
+                                </Button>
                             </Form.Item>
                         </Col>
                     </Row>

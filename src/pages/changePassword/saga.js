@@ -5,6 +5,12 @@ import { takeSagas } from "../../sagas/index"
 import { createDefineActions } from "../../actions/index"
 import { reducerActions } from './reducer'
 
+const delay = (timeout) => {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout)
+    })
+}
+
 export const sagas = Object.assign({}, {
     fetchPassword: function * (action) {
         let payload = {
@@ -14,7 +20,16 @@ export const sagas = Object.assign({}, {
         }
         let data = yield call(Api.fetchPassword, payload)
         console.log(data, 'fetchPassword')
-    }
+    },
+    getCheckCode: function * (action) {
+        let sec = 59
+        while(sec > 0){
+            yield call(delay, 1000);
+            yield put(reducerActions.updateCheckCode({sec: sec}))
+            sec--
+        }
+        
+    },
 })
 
 export const sagaActions = createDefineActions(sagas, namespace)

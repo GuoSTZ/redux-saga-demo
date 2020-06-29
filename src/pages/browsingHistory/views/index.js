@@ -26,7 +26,7 @@ export default class BrowsingHistory extends React.Component{
                             <section>
                                 <section className='process'>
                                     <span>已看</span>
-                                    <span  style={{marginLeft: 10}}>
+                                    <span style={{marginLeft: 10}}>
                                         {
                                             item.process > 3600000 ? 
                                             moment(item.process).utcOffset(0).format('HH:mm:ss') :
@@ -63,7 +63,7 @@ export default class BrowsingHistory extends React.Component{
                         <Empty
                             image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
                             imageStyle={{
-                            height: 60,
+                                height: 60,
                             }}
                             description={
                                 <span>

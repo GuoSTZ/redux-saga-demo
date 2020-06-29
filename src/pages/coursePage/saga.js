@@ -20,6 +20,11 @@ export const sagas = Object.assign({}, {
         console.log(data, 'status')
         yield put(reducerActions.updateCourseStatus(data))
         
+    },
+    fetchNewVideoMessageByCourseId: function * (action) {
+        let data = yield call(Api.fetchNewVideoMessageByCourseId, action.payload)
+        console.log(data, 'fetchNewVideoMessageByCourseId')
+        yield put(reducerActions.updateNewVideoMessage(data))
     }
 })
 

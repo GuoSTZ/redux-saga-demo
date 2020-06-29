@@ -36,18 +36,17 @@ function beforeUpload(file) {
     return isJpgOrPng && isLt2M;
 }
 
-let user = null;
-if(sessionStorage.getItem('user') !== null){
-    user = JSON.parse(sessionStorage.getItem('user'))
-}
-
 export default class UploadVideo extends React.Component{
     state = {
         loading: false,
         createTime: moment().format('x'),
         videoId: 0,  // 初始化为0，表示该videoId为错误的
     };
-    componentDidMount(){
+    user = null
+    componentWillMount(){
+        if(sessionStorage.getItem('user') !== null){
+            this.user = JSON.parse(sessionStorage.getItem('user'))
+        }
     }
     onFinish = values => {
         const {actions} = this.props
@@ -56,7 +55,7 @@ export default class UploadVideo extends React.Component{
             id: this.state.videoId,
             videoUrl: this.state.videoUrl,
             coverUrl: this.state.coverUrl,
-            userId: user.id,
+            userId: this.user.id,
             date: moment().format('x'),
         }));
         actions.videoTagSubmit({
@@ -64,6 +63,9 @@ export default class UploadVideo extends React.Component{
             videoId: this.state.videoId,
         })
         message.info("个人视频上传成功，请等待审核。。")
+        setTimeout(()=>{
+            window.location.reload()
+        }, 500)
     };
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
@@ -113,7 +115,7 @@ export default class UploadVideo extends React.Component{
         const uploadProps = {
             action: `video/uploadVideo`,
             data: { 
-                userId: user.id, 
+                userId: this.user.id, 
                 createTime: this.state.createTime,
                 videoId: this.state.videoId 
             },
@@ -197,7 +199,7 @@ export default class UploadVideo extends React.Component{
                             showUploadList={false}
                             action={`video/uploadVideoCoverUrl`}
                             data={{
-                                userId: user.id,
+                                userId: this.user.id,
                                 createTime: this.state.createTime,
                                 videoId: this.state.videoId
                             }}

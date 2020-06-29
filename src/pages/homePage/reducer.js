@@ -8,6 +8,18 @@ export const reduces = Object.assign(defaultReducer(), {
             ...state,
             loginMessage: action.payload
         }
+    },
+    updateNewCourseMessage: (state, action) => {
+        return {
+            ...state,
+            newCourseMessage: action.payload
+        }
+    },
+    updateNewVideoMessage: (state, action) => {
+        return {
+            ...state,
+            newVideoMessage: action.payload
+        }
     }
 })
 
@@ -17,7 +29,9 @@ export const initialState = Object.assign({}, defaultState, {
     loginMessage: {
         name: '游客',
         avatarUrl: ''
-    }
+    },
+    newCourseMessage: [[]],
+    newVideoMessage: [{}]
 })
 
 export default reducerCreator(megerActionReducer(reduces, reducerActions), initialState)

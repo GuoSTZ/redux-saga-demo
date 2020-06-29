@@ -9,13 +9,20 @@ export const reduces = Object.assign(defaultReducer(), {
             type: action.payload
         }
 
+    },
+    updateCourseMessage: (state, action) => {
+        return {
+            ...state,
+            courseMessage: action.payload
+        }
     }
 })
 
 export const reducerActions = createDefineActions(reduces, namespace)
 
 export const initialState = Object.assign({}, defaultState, {
-    type: {}
+    type: {},
+    courseMessage:[{}]
 })
 
 export default reducerCreator(megerActionReducer(reduces, reducerActions), initialState)

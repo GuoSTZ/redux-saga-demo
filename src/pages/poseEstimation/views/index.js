@@ -1,8 +1,62 @@
 import React from 'react'
+import { List, Card } from 'antd'
 import { Player, ControlBar, ForwardControl, ReplayControl, PlaybackRateMenuButton, BigPlayButton } from 'video-react';
 import Header from '../../../components/header/index'
 import Footer from '../../../components/footer/index'
 import './index.less'
+
+const bonesData = [
+    // {
+    //   title: '上半身',
+    // },
+    // {
+    //   title: '下半身',
+    // },
+    {
+      title: '脖子与右肩',
+    },
+    {
+      title: '脖子与左肩',
+    },
+    {
+      title: '右肩与右手臂',
+    },
+    {
+      title: '右手肘',
+    },
+    {
+        title: '左肩与左手臂',
+    },
+    {
+        title: '左手肘',
+    },
+    {
+        title: '躯干与右臀',
+    },
+    {
+        title: '躯干与左臀',
+    },
+    {
+        title: '中臀与右腿',
+    },
+    {
+        title: '右腿膝盖',
+    },
+    {
+        title: '右腿脚踝',
+    },
+    {
+        title: '中臀与左腿',
+    },
+    {
+        title: '左腿膝盖',
+    },
+    {
+        title: '左腿脚踝',
+    },
+];
+
+
 
 export default class PoseEstimation extends React.Component{
     state = {
@@ -10,11 +64,16 @@ export default class PoseEstimation extends React.Component{
         seeking: false, // 是否出现拖拽进度条的行为
     }
     componentDidMount(){
-        console.log(this)
+        const { actions } = this.props
         // this.player.playbackRate = 1; // 初始化视频播放速率
         this.player_teacher.subscribeToStateChange(this.handleStateChange1.bind(this)); // 订阅播放器的状态
         this.player_student.subscribeToStateChange(this.handleStateChange2.bind(this)); // 订阅播放器的状态
-        console.log(this.player_teacher)
+        // actions.fetchTeacherVideo({ courseId: parseInt(sessionStorage.getItem('courseId')) })
+        // actions.fetchStudentVideo({ courseId: parseInt(sessionStorage.getItem('courseId')), userId: JSON.parse(sessionStorage.getItem('user')).id })
+        actions.fetchDeviation({
+            courseId: parseInt(sessionStorage.getItem('courseId')),
+            userId: JSON.parse(sessionStorage.getItem('user')).id
+        })
     }
 
     handleStateChange1(state, prevState){
@@ -72,9 +131,14 @@ export default class PoseEstimation extends React.Component{
     }
 
     render(){
+        let user = null;
+        if(sessionStorage.getItem('user') !== null){
+            user = JSON.parse(sessionStorage.getItem('user'))
+        }
+        const { reducer: {teacherVideo, studentVideo, deviation} } = this.props
         return(
             <section id='poseEstimation'>
-                <Header user={{src: ''}} />
+                <Header user={user} />
                 <main>
 
                     <section>
@@ -84,7 +148,7 @@ export default class PoseEstimation extends React.Component{
                                 className="player"
                                 playsInline
                                 ref={(player) => { this.player_teacher = player }}
-                                src={"./resources/videos/personal/10000002/10000002.mp4"}
+                                src={teacherVideo[0].videoResUrl}
                             >
                                 <BigPlayButton position="center" />
                                 <ControlBar autoHide={true}>
@@ -102,7 +166,7 @@ export default class PoseEstimation extends React.Component{
                                 className="teacherPlayer"
                                 playsInline
                                 ref={(player) => { this.player_student = player }}
-                                src={"./resources/videos/personal/10000003/10000003.mp4"}
+                                src={studentVideo.videoResUrl}
                             >
                                 <BigPlayButton position="center" />
                             </Player>
@@ -111,7 +175,24 @@ export default class PoseEstimation extends React.Component{
                     </section>
                 </main>
                 <section className='considerations'>
-                    <h2>注意事项</h2>
+                    <h2>整体偏差值显示</h2>
+                    <List
+                        grid={{
+                            gutter: 16,
+                            xs: 1,
+                            sm: 2,
+                            md: 4,
+                            lg: 4,
+                            xl: 6,
+                            xxl: 3,
+                        }}
+                        dataSource={bonesData}
+                        renderItem={(item, index) => (
+                        <List.Item>
+                            <Card title={item.title}>{deviation[index]}</Card>
+                        </List.Item>
+                        )}
+                    />
                 </section>
                 <Footer />
             </section>

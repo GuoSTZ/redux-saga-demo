@@ -5,11 +5,12 @@ import { InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 
 
-const VideoUpload = ({ name, multiple, action,onChange, accept, previewFile }) => (
+const VideoUpload = ({ name, multiple, action, data, onChange, accept, previewFile }) => (
     <Dragger
         name = {name}
         multiple = {multiple}
         action = {action}
+        data = {data}
         onChange = {onChange}
         accept = {accept}
         previewFile = {previewFile}

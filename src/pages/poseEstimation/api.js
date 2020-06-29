@@ -6,3 +6,21 @@ export function fetchData(params) {
       body: params
     });
 }
+
+export function fetchTeacherVideo(params) {
+  return fetchGet(`video/getVideoByCourseId`, {
+    body: params
+  });
+}
+
+export function fetchStudentVideo(params) {
+  return fetchGet(`video/getVideoByCourseIdAndUserId`, {
+    body: params
+  });
+}
+
+export function fetchDeviation(params) {
+  return fetchGet(`poseEstimation/getDeviation`, {
+    body: params
+  });
+}
