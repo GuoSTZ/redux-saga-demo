@@ -22,14 +22,16 @@ export function fetchPost(url, options) {
     }
     return fetch(
         url,
-        Object.assign({
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                Pragma: 'no-cache'
+        Object.assign(
+            {
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    Pragma: 'no-cache',
+                },
+                method: 'POST',
+                mode: 'cors',
             },
-            method: 'POST'
-        },
-        options
+            options
         )
     )
     .then(res => res.json())

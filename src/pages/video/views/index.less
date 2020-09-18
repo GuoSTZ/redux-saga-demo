@@ -1,0 +1,168 @@
+#videoPage{
+    main{
+        position: relative;
+        width: 75%;
+        // padding: 0 5%;
+        padding-top: 40px;
+        margin: 0 auto;
+        margin-bottom: 40px;
+        .title{
+            display: flex;
+            width: 100%;
+            margin-bottom: 10px;
+            >section:nth-child(1){
+                width: 70%;
+                .videoTitle{
+                    font-size: 20px;
+                    color: #000;
+                }
+                .videoData{
+                    margin-top: 8px;
+                    margin-bottom: 4px;
+                    font-size: 12px;
+                    >span{
+                        font-size: 13px;
+                    }
+                    >span:nth-of-type(1){
+                        font-size: 15px;
+                    }
+                    >span:nth-of-type(2){
+                        margin-left: 10px;
+                    }
+                    >span:nth-of-type(3){
+                        margin-left: 4px;
+                    }
+                }
+                >p:nth-of-type(2){
+                    font-size: 12px;
+                }
+            }
+            >section:nth-child(2){
+                width: 30%;
+                margin-left: 8px;
+                .userMessage{
+                    display: inline-block;
+                    width: calc( 100% - 72px );
+                    margin-left: 8px;
+                    vertical-align: top;
+                    >p{
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+
+        .videoAction{
+            margin-top: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #d9dfe9;
+            .likeNum{
+                margin-left: 4px;
+                font-size: 18px;
+                vertical-align: top;
+            }
+            .collectNum{
+                margin-left: 4px;
+                font-size: 18px;
+                vertical-align: top;
+            }
+        }
+
+        .videoMessage{
+            width: 70%;
+            margin-top: 20px;
+            .briefIntroduction{
+                margin-top: 20px;
+            }
+        }
+        .videoHonor{
+            width: 30%;
+            margin-top: 20px;
+            border: 1px solid #d9dfe9;
+            >section:nth-child(1){
+                span{
+                    color: #000;
+                    font-size: 20px;
+                    border-bottom: 4px solid #25C1FF;
+                }
+                text-align: center;
+            }
+        }
+        .userModule{
+            display: flex;
+            margin-top: 20px;
+            .content{
+                position: relative;
+                width: 70%;
+                padding: 10px 20px 50px;
+                box-shadow: 0 1px 3px 1px #d9dfe9;
+                .title{
+                    display: flex;
+                    color: #000;
+                    border-bottom: 1px solid #d9dfe9;
+                    >span:nth-child(1){
+                        margin-right: 10px;
+                        font-size: 16px;
+                        line-height: 2;
+                    }
+                    >span:nth-child(2){
+                        flex: 1;
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+                }
+                .commentAction{
+                    display: flex;
+                    margin-bottom: 20px;
+                    
+                    >section{
+                        width: 90%;
+                        margin-left: 10px;
+                        border-bottom: 1px solid #d9dfe9;
+                        textarea{
+                            resize:none
+                        }
+                    }
+                }
+            }
+            .ranking{
+                width: 30%;
+                height: auto;
+                margin-left: 20px;
+                .similarVideo{
+                    width: 100%;
+                    padding: 10px;
+                    box-shadow: 0 1px 3px 1px #d9dfe9;
+                    .ant-list-item{
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                }
+                .viewsVideo{
+                    width: 100%;
+                    padding: 10px;
+                    margin-top: 20px;
+                    box-shadow: 0 1px 3px 1px #d9dfe9;
+                }
+            }
+        }
+    }
+
+    .video-react.video-react-fluid, .video-react.video-react-16-9, .video-react.video-react-4-3 {
+        padding-top: 56% !important;
+        width: 100%;
+        max-width: 100%;
+        height: 0;
+    }
+    
+    .video-react {
+        .video-react-big-play-button{
+            left: 46%;
+            top: 45%;
+        }
+    }
+    
+}
